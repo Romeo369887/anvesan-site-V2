@@ -1,0 +1,2185 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anvesan | The State of Agentic Payments | March 2026</title>
+  <style>
+    :root {
+      --bg: #f5f5f3;
+      --paper: #fcfcfa;
+      --ink: #111111;
+      --muted: #666666;
+      --line: #deded8;
+      --soft: #ecece6;
+      --soft-2: #f1f1ed;
+      --accent: #0f172a;
+      --accent-2: #1f2937;
+      --green: #e9f4ea;
+      --green-ink: #1f5d32;
+      --amber: #fff4dd;
+      --amber-ink: #7a5310;
+      --red: #fdecec;
+      --red-ink: #8b2b2b;
+      --blue: #eaf1ff;
+      --blue-ink: #274690;
+      --shadow: 0 18px 48px rgba(16, 24, 40, 0.08);
+      --shadow-soft: 0 8px 20px rgba(16, 24, 40, 0.05);
+      --radius: 14px;
+      --radius-lg: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    body {
+      padding: 10mm 0 16mm;
+    }
+
+    .page {
+      width: 210mm;
+      height: 297mm;
+      margin: 0 auto 10mm;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      padding: 14mm 16mm 14mm 16mm;
+      border-radius: 2px;
+      isolation: isolate;
+    }
+
+    .page::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at top right, rgba(17,17,17,0.03), transparent 22%),
+        linear-gradient(180deg, rgba(255,255,255,0.15), transparent 18%);
+      z-index: 0;
+    }
+
+    .page > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    @page {
+      size: A4;
+      margin: 0;
+    }
+
+    @media print {
+      body { padding: 0; background: white; }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        page-break-after: always;
+      }
+    }
+
+    h1, h2, h3, h4, p { margin: 0; }
+    h1 { font-size: 27px; line-height: 1.05; letter-spacing: -0.04em; }
+    h2 { font-size: 18px; line-height: 1.15; letter-spacing: -0.03em; }
+    h3 { font-size: 12px; line-height: 1.2; letter-spacing: -0.01em; }
+    p, li { font-size: 10.4px; line-height: 1.45; color: var(--ink); }
+    .small { font-size: 8.7px; line-height: 1.35; color: var(--muted); }
+    .tiny { font-size: 7.8px; line-height: 1.35; color: var(--muted); }
+    .muted { color: var(--muted); }
+
+    .brandbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12mm;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--paper);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 19px;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+    }
+
+    .brandtext .name {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+
+    .brandtext .sub {
+      font-size: 8px;
+      color: var(--muted);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-top: 2px;
+    }
+
+    .meta {
+      font-size: 8.4px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .titleblock {
+      display: grid;
+      grid-template-columns: 1.25fr 0.75fr;
+      gap: 14mm;
+      align-items: start;
+      margin-bottom: 10mm;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: 1px solid var(--line);
+      background: var(--soft-2);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 8.2px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 8mm;
+    }
+
+    .dek {
+      margin-top: 8mm;
+      font-size: 12.2px;
+      line-height: 1.45;
+      max-width: 102mm;
+      color: #1c1c1c;
+    }
+
+    .cover-rail {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffffff 0%, #f7f7f4 100%);
+      padding: 10mm;
+    }
+
+    .pillrow, .chiprow {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .pill, .chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: white;
+      font-size: 8px;
+      color: var(--muted);
+    }
+
+    .chip.live { background: var(--green); color: var(--green-ink); border-color: #c8e2cd; }
+    .chip.early { background: var(--amber); color: var(--amber-ink); border-color: #ecd9a8; }
+    .chip.test { background: var(--red); color: var(--red-ink); border-color: #f2c7c7; }
+    .chip.spec { background: var(--blue); color: var(--blue-ink); border-color: #cbd8ff; }
+
+    .summary-grid,
+    .stats-grid,
+    .leaders-grid,
+    .comparison-grid,
+    .future-grid,
+    .horizons,
+    .risk-grid,
+    .source-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .summary-grid { grid-template-columns: repeat(2, 1fr); margin-top: 7mm; }
+    .stats-grid { grid-template-columns: repeat(4, 1fr); }
+    .leaders-grid { grid-template-columns: 1.2fr 0.8fr; }
+    .comparison-grid { grid-template-columns: 1fr 1fr; }
+    .future-grid { grid-template-columns: 1.1fr 0.9fr; }
+    .horizons { grid-template-columns: repeat(3, 1fr); }
+    .risk-grid { grid-template-columns: repeat(3, 1fr); }
+    .source-grid { grid-template-columns: 1fr 1fr; }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,0.98);
+      padding: 9px 10px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card.soft { background: var(--soft-2); }
+    .card.dark {
+      background: linear-gradient(180deg, #151515 0%, #222 100%);
+      color: white;
+      border: none;
+    }
+    .card.dark p, .card.dark .small, .card.dark .muted { color: rgba(255,255,255,0.78); }
+
+    .sectionhead {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8mm;
+    }
+
+    .kicker {
+      font-size: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--muted);
+      margin-bottom: 3px;
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin: 6mm 0;
+    }
+
+    .stat-card {
+      min-height: 52mm;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stat-value {
+      font-size: 25px;
+      line-height: 0.95;
+      letter-spacing: -0.05em;
+      font-weight: 750;
+      margin: 5px 0 4px;
+    }
+
+    .stat-label {
+      font-size: 9px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .stat-note {
+      margin-top: 6px;
+      font-size: 8.4px;
+      color: var(--muted);
+      line-height: 1.35;
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .three-col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .rail-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .lane {
+      border-radius: 16px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, #fff 0%, #f7f7f2 100%);
+      min-height: 150px;
+      position: relative;
+    }
+
+    .lane h3 { font-size: 13px; margin-bottom: 6px; }
+    .lane .bigline {
+      font-size: 18px;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      font-weight: 700;
+      margin: 10px 0 6px;
+    }
+
+    .lane ul {
+      margin: 8px 0 0 16px;
+      padding: 0;
+    }
+
+    .mini-label {
+      font-size: 7.8px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+    }
+
+    .axis-box {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: linear-gradient(180deg, #fff 0%, #f7f7f2 100%);
+      padding: 10px;
+    }
+
+    .matrix-wrap {
+      position: relative;
+      height: 136mm;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background:
+        linear-gradient(to right, transparent 49.8%, var(--line) 50%, transparent 50.2%),
+        linear-gradient(to bottom, transparent 49.8%, var(--line) 50%, transparent 50.2%),
+        linear-gradient(180deg, #fff 0%, #f8f8f5 100%);
+      overflow: hidden;
+    }
+
+    .axis-x, .axis-y {
+      position: absolute;
+      font-size: 8px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .axis-x { bottom: 6px; left: 50%; transform: translateX(-50%); }
+    .axis-y { top: 50%; left: -20px; transform: rotate(-90deg) translateY(-50%); transform-origin: left top; }
+
+    .quad-label {
+      position: absolute;
+      font-size: 7.8px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      background: rgba(252,252,250,0.9);
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+    }
+
+    .dot {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      background: var(--ink);
+      color: white;
+      border-radius: 999px;
+      padding: 5px 7px;
+      font-size: 8px;
+      font-weight: 650;
+      white-space: nowrap;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    }
+
+    .dot.soft { background: #3b3b3b; }
+    .dot.outline {
+      background: white;
+      color: var(--ink);
+      border: 1px solid var(--line);
+    }
+
+    .timeline {
+      position: relative;
+      margin-top: 3mm;
+      padding-left: 14px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--line);
+    }
+
+    .event {
+      position: relative;
+      margin-bottom: 10px;
+      padding: 0 0 0 10px;
+    }
+
+    .event::before {
+      content: "";
+      position: absolute;
+      left: -1px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--ink);
+      border: 2px solid var(--paper);
+      box-shadow: 0 0 0 1px var(--line);
+    }
+
+    .event .date {
+      font-size: 8px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-bottom: 3px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .layer {
+      display: grid;
+      grid-template-columns: 40mm 1fr 34mm;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: white;
+      padding: 8px 10px;
+    }
+
+    .layer .left {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--muted);
+      font-weight: 650;
+    }
+
+    .layer .right {
+      text-align: right;
+      font-size: 8px;
+      color: var(--muted);
+    }
+
+    .barblock {
+      display: grid;
+      gap: 7px;
+      margin-top: 8px;
+    }
+
+    .barrow {
+      display: grid;
+      grid-template-columns: 42mm 1fr 12mm;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .bar {
+      position: relative;
+      height: 11px;
+      background: var(--soft);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #111 0%, #5d6470 100%);
+    }
+
+    .fill.green { background: linear-gradient(90deg, #31553a 0%, #85a87f 100%); }
+    .fill.amber { background: linear-gradient(90deg, #7a5310 0%, #d3ae62 100%); }
+    .fill.blue { background: linear-gradient(90deg, #274690 0%, #7f9ae0 100%); }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 8.7px;
+    }
+
+    th, td {
+      text-align: left;
+      vertical-align: top;
+      padding: 7px 7px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    th {
+      font-size: 7.8px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.11em;
+      font-weight: 700;
+    }
+
+    .heat {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      overflow: hidden;
+      background: white;
+    }
+
+    .heat table td.center, .heat table th.center { text-align: center; }
+    .severity-high { background: #f7dddd; color: #7d2e2e; }
+    .severity-mid { background: #fff0d4; color: #7b5610; }
+    .severity-low { background: #e8f2e9; color: #255337; }
+
+    .quote {
+      border-left: 3px solid var(--ink);
+      padding-left: 10px;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #202020;
+    }
+
+    .footer {
+      position: absolute;
+      left: 16mm;
+      right: 16mm;
+      bottom: 8mm;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 7.6px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border-top: 1px solid var(--line);
+      padding-top: 5px;
+    }
+
+    .source-list {
+      margin: 0;
+      padding-left: 16px;
+      display: grid;
+      gap: 4px;
+    }
+
+    .source-list li { font-size: 8.3px; line-height: 1.35; }
+    a { color: inherit; }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 7.3px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 4px 6px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--soft-2);
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .page-no { font-variant-numeric: tabular-nums; }
+
+    .cover-page {
+      padding: 0;
+      background:
+        radial-gradient(circle at 18% 18%, rgba(255,255,255,0.92) 0%, rgba(255,255,255,0.75) 16%, transparent 17%),
+        radial-gradient(circle at 84% 15%, rgba(29,29,29,0.08) 0%, transparent 22%),
+        linear-gradient(135deg, #f6f6f2 0%, #efefe8 46%, #e8e7df 100%);
+    }
+
+    .cover-page::before {
+      background:
+        radial-gradient(circle at 80% 20%, rgba(17,17,17,0.05), transparent 24%),
+        radial-gradient(circle at 22% 78%, rgba(17,17,17,0.04), transparent 20%);
+    }
+
+    .cover-inner {
+      height: 100%;
+      padding: 16mm 16mm 14mm 16mm;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 12mm;
+    }
+
+    .cover-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .cover-grid {
+      display: grid;
+      grid-template-columns: 1.12fr 0.88fr;
+      gap: 12mm;
+      align-items: stretch;
+    }
+
+    .cover-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 190mm;
+    }
+
+    .cover-title-wrap {
+      padding-top: 4mm;
+    }
+
+    .cover-title {
+      font-size: 39px;
+      line-height: 0.96;
+      letter-spacing: -0.06em;
+      max-width: 108mm;
+      margin-top: 7mm;
+    }
+
+    .cover-subtitle {
+      margin-top: 8mm;
+      font-size: 13px;
+      line-height: 1.5;
+      max-width: 104mm;
+      color: #222;
+    }
+
+    .cover-highlight {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12mm;
+    }
+
+    .cover-stat {
+      padding: 8px 9px;
+      border: 1px solid rgba(17,17,17,0.08);
+      border-radius: 14px;
+      background: rgba(255,255,255,0.68);
+      backdrop-filter: blur(4px);
+      min-height: 34mm;
+    }
+
+    .cover-stat .value {
+      font-size: 20px;
+      line-height: 1;
+      font-weight: 760;
+      letter-spacing: -0.05em;
+      margin: 3px 0 5px;
+    }
+
+    .cover-right {
+      display: grid;
+      grid-template-rows: 1.1fr 0.9fr;
+      gap: 8px;
+    }
+
+    .hero-panel {
+      border: 1px solid rgba(17,17,17,0.08);
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(248,248,244,0.92) 100%);
+      padding: 11mm 10mm;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      right: -18mm;
+      top: -18mm;
+      width: 62mm;
+      height: 62mm;
+      border-radius: 50%;
+      border: 1px solid rgba(17,17,17,0.08);
+    }
+
+    .hero-lanes {
+      display: grid;
+      gap: 9px;
+      margin-top: 9px;
+    }
+
+    .hero-lane {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 10px 10px 12px;
+      background: rgba(255,255,255,0.78);
+    }
+
+    .hero-lane h3 {
+      font-size: 18px;
+      line-height: 1;
+      letter-spacing: -0.05em;
+      margin: 8px 0 6px;
+    }
+
+    .hero-notes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .signal-card {
+      min-height: 47mm;
+      border: 1px solid rgba(17,17,17,0.08);
+      border-radius: 18px;
+      padding: 9px 10px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.86) 0%, rgba(244,244,239,0.9) 100%);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .page-intro {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 10mm;
+      align-items: start;
+      margin-bottom: 8mm;
+    }
+
+    .intro-panel {
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      background: linear-gradient(180deg, #fff 0%, #f7f7f2 100%);
+      padding: 9mm 9mm 8mm;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .signal-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 8mm;
+    }
+
+    .signal-strip .card {
+      min-height: 44mm;
+    }
+
+    .metric-callout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+
+    /* PREMIUM EDITORIAL OVERRIDES */
+    .page {
+      box-shadow:
+        0 28px 70px rgba(15, 23, 42, 0.08),
+        0 6px 18px rgba(15, 23, 42, 0.05);
+    }
+
+    .card,
+    .intro-panel,
+    .lane,
+    .axis-box,
+    .hero-panel,
+    .signal-card,
+    .cover-stat,
+    .cover-map,
+    .hero-lane {
+      border-color: rgba(17, 17, 17, 0.08);
+      box-shadow: 0 14px 28px rgba(17, 17, 17, 0.045);
+    }
+
+    .card,
+    .intro-panel,
+    .lane,
+    .axis-box,
+    .hero-panel,
+    .signal-card,
+    .cover-stat,
+    .cover-map,
+    .hero-lane {
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.98) 0%, rgba(247,247,242,0.96) 100%);
+    }
+
+    .eyebrow,
+    .badge,
+    .pill {
+      background: rgba(255,255,255,0.76);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-color: rgba(17,17,17,0.09);
+    }
+
+    .footer {
+      color: #716f69;
+      letter-spacing: 0.16em;
+      border-top-color: rgba(17,17,17,0.09);
+    }
+
+    .brandtext .name {
+      letter-spacing: -0.035em;
+    }
+
+    .cover-page {
+      padding: 0;
+      background:
+        radial-gradient(circle at 12% 14%, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.68) 15%, transparent 16%),
+        radial-gradient(circle at 82% 14%, rgba(17,17,17,0.06) 0%, transparent 22%),
+        radial-gradient(circle at 24% 88%, rgba(17,17,17,0.035) 0%, transparent 18%),
+        linear-gradient(135deg, #f7f6f2 0%, #f0efe8 48%, #e7e5dc 100%);
+    }
+
+    .cover-page::before {
+      background:
+        radial-gradient(circle at 82% 18%, rgba(17,17,17,0.05), transparent 25%),
+        radial-gradient(circle at 22% 78%, rgba(17,17,17,0.04), transparent 20%),
+        linear-gradient(180deg, rgba(255,255,255,0.10), transparent 20%);
+    }
+
+    .cover-inner {
+      height: 100%;
+      padding: 15mm 16mm 14mm 16mm;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 9mm;
+    }
+
+    .cover-grid {
+      display: grid;
+      grid-template-columns: 1.14fr 0.86fr;
+      gap: 10mm;
+      align-items: stretch;
+    }
+
+    .cover-left {
+      display: grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 7mm;
+      min-height: 190mm;
+    }
+
+    .cover-title-wrap {
+      padding-top: 2mm;
+    }
+
+    .cover-title {
+      font-family: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
+      font-size: 46px;
+      line-height: 0.94;
+      letter-spacing: -0.065em;
+      max-width: 116mm;
+      margin-top: 6mm;
+    }
+
+    .cover-subtitle {
+      margin-top: 7mm;
+      font-size: 12.8px;
+      line-height: 1.5;
+      max-width: 106mm;
+      color: #252525;
+    }
+
+    .cover-highlight {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 2mm;
+    }
+
+    .cover-stat {
+      min-height: 31mm;
+      padding: 8px 9px 9px;
+      border-radius: 16px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.80) 0%, rgba(246,246,240,0.88) 100%);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    .cover-stat .value {
+      font-size: 21px;
+      line-height: 0.95;
+      font-weight: 780;
+      letter-spacing: -0.055em;
+      margin: 4px 0 5px;
+    }
+
+    .cover-map {
+      position: relative;
+      border: 1px solid rgba(17,17,17,0.08);
+      border-radius: 24px;
+      padding: 7.5mm 8mm 7mm;
+      background:
+        radial-gradient(circle at 86% 14%, rgba(17,17,17,0.045) 0%, transparent 18%),
+        linear-gradient(180deg, rgba(255,255,255,0.78) 0%, rgba(246,246,239,0.92) 100%);
+      box-shadow: 0 14px 28px rgba(17, 17, 17, 0.045);
+      overflow: hidden;
+    }
+
+    .cover-map::after {
+      content: "";
+      position: absolute;
+      width: 44mm;
+      height: 44mm;
+      right: -14mm;
+      bottom: -14mm;
+      border-radius: 50%;
+      border: 1px solid rgba(17,17,17,0.08);
+      pointer-events: none;
+    }
+
+    .cover-map-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 5mm;
+    }
+
+    .cover-map-kicker {
+      font-size: 8px;
+      line-height: 1.3;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .position-map {
+      position: relative;
+      height: 66mm;
+      border-radius: 18px;
+      border: 1px solid rgba(17,17,17,0.08);
+      background:
+        linear-gradient(to right, transparent 49.85%, rgba(17,17,17,0.08) 50%, transparent 50.15%),
+        linear-gradient(to bottom, transparent 49.85%, rgba(17,17,17,0.08) 50%, transparent 50.15%),
+        linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(247,247,242,0.92) 100%);
+      overflow: hidden;
+    }
+
+    .position-map::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          to right,
+          transparent 0,
+          transparent calc(25% - 0.5px),
+          rgba(17,17,17,0.03) calc(25% - 0.5px),
+          rgba(17,17,17,0.03) 25%
+        ),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent calc(25% - 0.5px),
+          rgba(17,17,17,0.03) calc(25% - 0.5px),
+          rgba(17,17,17,0.03) 25%
+        );
+      pointer-events: none;
+    }
+
+    .position-map .axis-x,
+    .position-map .axis-y {
+      position: absolute;
+      font-size: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: #7b786f;
+      z-index: 2;
+    }
+
+    .position-map .axis-x {
+      right: 8px;
+      bottom: 8px;
+      left: auto;
+      transform: none;
+    }
+
+    .position-map .axis-y {
+      left: -24px;
+      top: 50%;
+      transform: rotate(-90deg) translateY(-50%);
+      transform-origin: left top;
+    }
+
+    .quad {
+      position: absolute;
+      font-size: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #8a877f;
+      z-index: 2;
+    }
+
+    .quad.q1 { left: 10px; top: 8px; }
+    .quad.q2 { right: 10px; top: 8px; }
+    .quad.q3 { left: 10px; bottom: 26px; }
+    .quad.q4 { right: 10px; bottom: 26px; }
+
+    .bubble {
+      position: absolute;
+      z-index: 3;
+      min-width: 36mm;
+      max-width: 44mm;
+      padding: 8px 10px 9px;
+      border-radius: 16px;
+      box-shadow: 0 12px 24px rgba(17,17,17,0.08);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+      border: 1px solid rgba(17,17,17,0.08);
+    }
+
+    .bubble strong {
+      display: block;
+      font-size: 10px;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-top: 5px;
+    }
+
+    .bubble.checkout {
+      left: 56%;
+      top: 14%;
+      background: linear-gradient(180deg, rgba(235,243,255,0.96) 0%, rgba(227,236,253,0.94) 100%);
+      border-color: rgba(83,117,196,0.22);
+    }
+
+    .bubble.machine {
+      left: 20%;
+      top: 49%;
+      background: linear-gradient(180deg, rgba(255,244,221,0.96) 0%, rgba(250,239,212,0.94) 100%);
+      border-color: rgba(178,140,52,0.22);
+    }
+
+    .bubble-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 7px;
+      border-radius: 999px;
+      font-size: 7px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      border: 1px solid rgba(17,17,17,0.08);
+      background: rgba(255,255,255,0.72);
+      color: #4a4a4a;
+    }
+
+    .cover-map-note {
+      margin-top: 5mm;
+      font-size: 8.5px;
+      line-height: 1.42;
+      color: #585650;
+      max-width: 100%;
+    }
+
+    .cover-footchips {
+      margin-top: 1mm;
+    }
+
+    .cover-right {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      gap: 8px;
+    }
+
+    .hero-panel {
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 88% 12%, rgba(17,17,17,0.045) 0%, transparent 20%),
+        linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(247,247,242,0.96) 100%);
+      padding: 9mm 9mm 8mm;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-panel::after {
+      content: "";
+      position: absolute;
+      right: -18mm;
+      top: -18mm;
+      width: 62mm;
+      height: 62mm;
+      border-radius: 50%;
+      border: 1px solid rgba(17,17,17,0.08);
+      opacity: 0.9;
+    }
+
+    .hero-lane {
+      border-radius: 18px;
+      padding: 11px 11px 13px;
+      background: rgba(255,255,255,0.8);
+      border: 1px solid rgba(17,17,17,0.08);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.45);
+    }
+
+    .hero-lane h3 {
+      font-size: 18px;
+      line-height: 0.98;
+      letter-spacing: -0.055em;
+      margin: 8px 0 7px;
+    }
+
+    .hero-notes {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+    }
+
+    .signal-card {
+      min-height: 40mm;
+      border-radius: 18px;
+      padding: 9px 10px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.86) 0%, rgba(244,244,239,0.9) 100%);
+    }
+
+    .signal-card.dark {
+      background:
+        radial-gradient(circle at 82% 18%, rgba(255,255,255,0.08) 0%, transparent 18%),
+        linear-gradient(180deg, #161616 0%, #252525 100%);
+      color: white;
+      border: none;
+    }
+
+    .signal-card.dark p,
+    .signal-card.dark .small,
+    .signal-card.dark .muted {
+      color: rgba(255,255,255,0.82);
+    }
+
+    .page-intro {
+      gap: 8mm;
+    }
+
+    .intro-panel {
+      border-radius: 24px;
+      padding: 8mm 8mm 7mm;
+    }
+
+    .lane {
+      border-radius: 18px;
+      padding: 11px 11px 12px;
+    }
+
+    .stat-card {
+      border-radius: 16px;
+    }
+
+  </style>
+</head>
+<body>
+
+  <!-- PAGE 1 -->
+  <section class="page cover-page">
+    <div class="cover-inner">
+      <div class="cover-meta">
+        <div class="brand">
+          <div class="mark">A</div>
+          <div class="brandtext">
+            <div class="name">Anvesan</div>
+            <div class="sub">Stablecoin Think Tank</div>
+          </div>
+        </div>
+        <div class="meta">March 2026 · Research Brief</div>
+      </div>
+
+      <div class="cover-grid">
+        <div class="cover-left">
+          <div class="cover-title-wrap">
+            <div class="eyebrow">State of the Market</div>
+            <h1 class="cover-title">The State of Agentic Payments</h1>
+            <div class="cover-subtitle">
+              A March 2026 view of what is live, who is leading, what the numbers actually say, and how the market is splitting between <strong>card-led agentic checkout</strong> and <strong>internet-native machine payments</strong>.
+            </div>
+          </div>
+
+          <div class="cover-highlight">
+            <div class="cover-stat">
+              <div class="tiny">Live consumer surface</div>
+              <div class="value">700M+</div>
+              <div class="small">weekly ChatGPT users, giving agentic commerce a giant discovery interface.</div>
+            </div>
+            <div class="cover-stat">
+              <div class="tiny">Machine rail signal</div>
+              <div class="value">75.41M</div>
+              <div class="small">x402 transactions over the last 30 days at time of retrieval.</div>
+            </div>
+            <div class="cover-stat">
+              <div class="tiny">Protocol breadth</div>
+              <div class="value">60+</div>
+              <div class="small">organizations Google says are collaborating on AP2.</div>
+            </div>
+          </div>
+
+          <div class="cover-map">
+            <div class="cover-map-head">
+              <div>
+                <div class="mini-label">Market map</div>
+                <div class="cover-map-kicker">Commercial readiness vs long-term strategic weight</div>
+              </div>
+              <div class="tiny">March 2026</div>
+            </div>
+
+            <div class="position-map">
+              <div class="axis-y">Long-term strategic weight</div>
+              <div class="axis-x">Commercial readiness</div>
+
+              <div class="quad q1">Longer arc</div>
+              <div class="quad q2">Scaling now</div>
+              <div class="quad q3">Experimental</div>
+              <div class="quad q4">Operational</div>
+
+              <div class="bubble machine">
+                <span class="bubble-tag">Early live</span>
+                <strong>Machine-native payments</strong>
+              </div>
+
+              <div class="bubble checkout">
+                <span class="bubble-tag">Live now</span>
+                <strong>Card-led agentic checkout</strong>
+              </div>
+            </div>
+
+            <div class="cover-map-note">
+              The first lane is closer to scale today. The second may matter more over the longer run.
+            </div>
+          </div>
+
+          <div class="pillrow cover-footchips">
+            <span class="pill">What is live right now</span>
+            <span class="pill">Who is leading</span>
+            <span class="pill">What the numbers say</span>
+            <span class="pill">What comes next</span>
+          </div>
+        </div>
+
+        <div class="cover-right">
+          <div class="hero-panel">
+            <div class="mini-label">The market in one frame</div>
+            <div class="hero-lanes" style="margin-top: 10px;">
+              <div class="hero-lane">
+                <div class="chiprow">
+                  <span class="chip live">Live</span>
+                  <span class="chip spec">Bounded consumer commerce</span>
+                </div>
+                <h3>Card-led agentic checkout</h3>
+                <p>OpenAI, Stripe, Mastercard, Visa, and Google are building governed purchase flows where AI can discover, compare, and transact under explicit user authorization.</p>
+              </div>
+
+              <div class="hero-lane">
+                <div class="chiprow">
+                  <span class="chip early">Early live</span>
+                  <span class="chip spec">Machine payments</span>
+                </div>
+                <h3>Internet-native agent payments</h3>
+                <p>x402, Stripe MPP, and Circle Nanopayments are building rails for agents paying APIs, software, data, and compute programmatically.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-notes">
+            <div class="signal-card">
+              <div class="badge">What matters most</div>
+              <p><strong>The breakthrough is not that agents can move money.</strong> The breakthrough is that the industry is finally building the trust, liability, and orchestration layers needed to make those payments governable.</p>
+            </div>
+
+            <div class="signal-card dark">
+              <div class="badge" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.14); color:rgba(255,255,255,0.68);">Bottom line</div>
+              <p><strong>The long-term winners will not own just one rail.</strong> They will control authorization, trust, merchant integration, and settlement connectivity across multiple payment environments.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer"><span>Anvesan · State of Agentic Payments</span><span class="page-no">01</span></div>
+    </div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="page">
+    <div class="brandbar">
+      <div class="brand">
+        <div class="mark">A</div>
+        <div class="brandtext">
+          <div class="name">Anvesan</div>
+          <div class="sub">Stablecoin Think Tank</div>
+        </div>
+      </div>
+      <div class="meta">March 2026 · Executive overview</div>
+    </div>
+
+    <div class="page-intro">
+      <div>
+        <div class="eyebrow">Executive summary</div>
+        <h1 style="max-width:110mm;">Agentic payments are real, but maturity is uneven</h1>
+        <div class="dek" style="max-width:112mm;">
+          In March 2026, the category has split into two distinct markets: <strong>bounded agentic checkout on card and merchant rails</strong>, and <strong>machine-native payments on internet and stablecoin rails</strong>. The first is commercially further along. The second is architecturally cleaner and may matter more over the long run.
+        </div>
+        <div class="signal-strip">
+          <div class="card soft">
+            <div class="badge">Core reading</div>
+            <p><strong>What exists today is not unconstrained autonomous spending.</strong> It is controlled delegation, trusted authentication, scoped credentials, and early machine-to-machine monetization.</p>
+          </div>
+          <div class="card soft">
+            <div class="badge">Market shape</div>
+            <p><strong>Bounded checkout is ahead.</strong> Machine-native payments are earlier, but fit APIs, software, data, and compute much better than traditional checkout flows.</p>
+          </div>
+          <div class="card dark">
+            <div class="badge" style="background:rgba(255,255,255,0.08); border-color:rgba(255,255,255,0.14); color:rgba(255,255,255,0.65);">Anvesan view</div>
+            <p><strong>The real moat will sit in trust and orchestration, not in the buy button itself.</strong></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="intro-panel">
+        <div class="mini-label">Market structure</div>
+        <div class="rail-split" style="grid-template-columns:1fr; gap:10px; margin-top:10px;">
+          <div class="lane" style="min-height:74mm;">
+            <div class="chiprow"><span class="chip live">Live</span><span class="chip spec">Merchant rails</span></div>
+            <div class="bigline">Card-led agentic checkout</div>
+            <p>OpenAI Instant Checkout, Stripe’s ACP stack, Mastercard Agent Pay, Visa Intelligent Commerce, and Google’s AP2/UCP work are pushing governed consumer transactions into production.</p>
+            <div class="metric-callout">
+              <div class="card soft">
+                <div class="tiny">Commercial signal</div>
+                <div style="font-size:20px; font-weight:760; letter-spacing:-0.05em; margin:3px 0;">Closer to scale</div>
+                <div class="small">Existing merchant, network, and dispute infrastructure gives this lane a meaningful adoption advantage.</div>
+              </div>
+              <div class="card soft">
+                <div class="tiny">Strategic edge</div>
+                <div style="font-size:20px; font-weight:760; letter-spacing:-0.05em; margin:3px 0;">Distribution</div>
+                <div class="small">The first wave rewards access to merchants, issuers, and trusted payment credentials.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="lane" style="min-height:74mm;">
+            <div class="chiprow"><span class="chip early">Early live</span><span class="chip spec">Internet rails</span></div>
+            <div class="bigline">Machine-native payments</div>
+            <p>x402, Stripe MPP, Visa’s MPP card spec, and Circle Nanopayments are shaping software-to-software payment flows for APIs, real-time data, content, and compute.</p>
+            <div class="metric-callout">
+              <div class="card soft">
+                <div class="tiny">Technical fit</div>
+                <div style="font-size:20px; font-weight:760; letter-spacing:-0.05em; margin:3px 0;">Architecturally cleaner</div>
+                <div class="small">Better fit for micropayments, machine timing, and global programmable settlement.</div>
+              </div>
+              <div class="card soft">
+                <div class="tiny">Current constraint</div>
+                <div style="font-size:20px; font-weight:760; letter-spacing:-0.05em; margin:3px 0;">Demand is earlier</div>
+                <div class="small">The rail is compelling. The durable economic traffic is still forming.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer"><span>Anvesan · Executive overview</span><span class="page-no">02</span></div>
+  </section>
+
+  <!-- PAGE 2 -->
+  <section class="page">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">Executive summary</div>
+        <h2>What is happening right now</h2>
+      </div>
+      <div class="small">A category is forming, but the maturity is uneven.</div>
+    </div>
+
+    <div class="summary-grid">
+      <div class="card stat-card">
+        <div>
+          <div class="stat-label">1 · Commercial reality</div>
+          <div class="stat-value" style="font-size:18px;">Bounded checkout is ahead</div>
+        </div>
+        <p>OpenAI Instant Checkout is live in bounded form. Stripe has productized ACP and expanded agentic payment methods. Mastercard has now announced live authorized transactions in Europe and Latin America. This is the most commercially credible segment.</p>
+      </div>
+      <div class="card stat-card">
+        <div>
+          <div class="stat-label">2 · Protocol direction</div>
+          <div class="stat-value" style="font-size:18px;">Standards are multiplying</div>
+        </div>
+        <p>ACP, AP2, UCP, Trusted Agent Protocol, Agent Pay, x402, and MPP all point to the same conclusion: the central market problem is no longer payment movement alone, but secure delegation, agent identity, and post-transaction accountability.</p>
+      </div>
+      <div class="card stat-card">
+        <div>
+          <div class="stat-label">3 · Machine economy</div>
+          <div class="stat-value" style="font-size:18px;">Stablecoins fit the use case better</div>
+        </div>
+        <p>For API calls, compute, real-time data, and software-to-software transactions, programmable stablecoin settlement is a better technical fit than traditional checkout. x402 is the clearest proof of traction, though measurement still varies materially across sources.</p>
+      </div>
+      <div class="card stat-card">
+        <div>
+          <div class="stat-label">4 · Forecast</div>
+          <div class="stat-value" style="font-size:18px;">Trust layers decide the market</div>
+        </div>
+        <p>Over the next 12–24 months, the market is likely to expand through more controlled retail deployments, more merchant integration, and more machine payment protocols. The real moat will sit in authorization, orchestration, and interoperability across rails.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="sectionhead" style="margin-bottom:5mm;">
+      <div>
+        <div class="kicker">The market split</div>
+        <h2>Two agentic-payments markets now exist side by side</h2>
+      </div>
+    </div>
+
+    <div class="rail-split">
+      <div class="lane">
+        <div class="chiprow" style="margin-bottom:8px;"><span class="chip live">Live now</span><span class="chip spec">Merchant rails</span></div>
+        <h3>Card-led agentic checkout</h3>
+        <p><strong>What it is:</strong> AI helps discover and buy products using existing merchant and card infrastructure.</p>
+        <ul>
+          <li>OpenAI + Stripe Instant Checkout and ACP</li>
+          <li>Mastercard Agent Pay and network-issued agentic tokens</li>
+          <li>Visa Intelligent Commerce + Trusted Agent Protocol</li>
+          <li>Google UCP / AP2 to standardize the commerce workflow</li>
+        </ul>
+        <div class="bigline">Closer to scale</div>
+        <p class="small">Why: Existing merchant relationships, mature dispute processes, known authorization primitives, and consumer familiarity.</p>
+      </div>
+      <div class="lane">
+        <div class="chiprow" style="margin-bottom:8px;"><span class="chip early">Early live</span><span class="chip spec">Internet rails</span></div>
+        <h3>Machine-native payments</h3>
+        <p><strong>What it is:</strong> Agents pay for services, APIs, content, data, or compute directly, without human checkout flows.</p>
+        <ul>
+          <li>x402 for HTTP-native stablecoin payments</li>
+          <li>Stripe MPP for programmable machine payments</li>
+          <li>Visa card spec for MPP</li>
+          <li>Circle Nanopayments for sub-cent transfers on testnet</li>
+        </ul>
+        <div class="bigline">Architecturally superior</div>
+        <p class="small">Why: Better fit for micropayments, global software usage, machine timing, and low-friction API monetization.</p>
+      </div>
+    </div>
+
+    <div class="footer"><span>Anvesan · Executive summary</span><span class="page-no">03</span></div>
+  </section>
+
+  <!-- PAGE 3 -->
+  <section class="page">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">Numbers</div>
+        <h2>The metrics that matter in March 2026</h2>
+      </div>
+      <div class="small">Not TAM theater. Just the strongest current signal points.</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="card stat-card">
+        <div class="stat-label">ChatGPT weekly users</div>
+        <div class="stat-value">700M+</div>
+        <div class="stat-note">OpenAI says more than 700M people turn to ChatGPT each week, giving agentic commerce a giant discovery surface.</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">Shopify merchants in queue</div>
+        <div class="stat-value">1M+</div>
+        <div class="stat-note">OpenAI says over a million Shopify merchants are coming soon to Instant Checkout after Etsy went live first.</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">x402 last 30 days</div>
+        <div class="stat-value">75.41M</div>
+        <div class="stat-note">Official x402 site shows 75.41M transactions over the last 30 days at time of retrieval.</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">x402 last 30 days volume</div>
+        <div class="stat-value">$24.24M</div>
+        <div class="stat-note">Volume remains modest relative to hype, but it is enough to prove non-trivial usage.</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">x402 buyers</div>
+        <div class="stat-value">94.06K</div>
+        <div class="stat-note">Proof that machine-native payments are attracting a real usage base, even if still early.</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">x402 sellers</div>
+        <div class="stat-value">22K</div>
+        <div class="stat-note">A meaningful count for internet-native monetization, though not yet evidence of mainstream adoption.</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">AP2 collaborators</div>
+        <div class="stat-value">60+</div>
+        <div class="stat-note">Google says more than 60 organizations are shaping AP2, reflecting broad interest in common payment rules.</div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-label">Mastercard LAC participants</div>
+        <div class="stat-value">17</div>
+        <div class="stat-note">Processors and issuers participated in Mastercard-led live transactions across Latin America and the Caribbean.</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="comparison-grid">
+      <div class="card">
+        <div class="kicker">Maturity ladder</div>
+        <h2 style="margin-bottom:7px;">Where the market stands today</h2>
+        <div class="barblock">
+          <div class="barrow"><div class="small">Agentic retail checkout</div><div class="bar"><div class="fill green" style="width:82%"></div></div><div class="small">82</div></div>
+          <div class="barrow"><div class="small">Network-authenticated card flows</div><div class="bar"><div class="fill green" style="width:74%"></div></div><div class="small">74</div></div>
+          <div class="barrow"><div class="small">Merchant protocol adoption</div><div class="bar"><div class="fill blue" style="width:61%"></div></div><div class="small">61</div></div>
+          <div class="barrow"><div class="small">Machine payments over MPP</div><div class="bar"><div class="fill amber" style="width:46%"></div></div><div class="small">46</div></div>
+          <div class="barrow"><div class="small">Stablecoin-native API payments</div><div class="bar"><div class="fill amber" style="width:42%"></div></div><div class="small">42</div></div>
+          <div class="barrow"><div class="small">Sub-cent nanopayments</div><div class="bar"><div class="fill" style="width:19%"></div></div><div class="small">19</div></div>
+        </div>
+        <p class="tiny" style="margin-top:7px;">Indicative Anvesan scoring based on what is live, measurable, and commercially usable in March 2026. It is not a market-size forecast.</p>
+      </div>
+
+      <div class="card dark">
+        <div class="kicker" style="color:rgba(255,255,255,0.7);">The hidden giant</div>
+        <h2 style="color:white; margin-bottom:8px;">Visa’s existing distribution still dwarfs the current agentic market</h2>
+        <div class="mini-grid">
+          <div>
+            <div class="stat-value" style="font-size:24px; color:white;">4.8B</div>
+            <p class="small">Payment credentials</p>
+          </div>
+          <div>
+            <div class="stat-value" style="font-size:24px; color:white;">150M+</div>
+            <p class="small">Merchant locations</p>
+          </div>
+          <div>
+            <div class="stat-value" style="font-size:24px; color:white;">300B+</div>
+            <p class="small">Transactions processed every year</p>
+          </div>
+          <div>
+            <div class="stat-value" style="font-size:24px; color:white;">Near zero</div>
+            <p class="small">Fraud rate Stripe says it is seeing on early agentic commerce flows</p>
+          </div>
+        </div>
+        <div class="divider" style="background:rgba(255,255,255,0.12); margin:7mm 0 5mm;"></div>
+        <p>The point is simple: the current agentic market is tiny next to the installed payment base. This is why card-network participation matters. Even modest agentic adoption riding existing networks can become enormous very quickly.</p>
+      </div>
+    </div>
+
+    <div class="footer"><span>Anvesan · Numbers that matter</span><span class="page-no">04</span></div>
+  </section>
+
+  <!-- PAGE 4 -->
+  <section class="page">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">Leaders</div>
+        <h2>Who is leading, and where</h2>
+      </div>
+      <div class="small">The market does not have one winner. It has leaders by layer.</div>
+    </div>
+
+    <div class="leaders-grid">
+      <div class="axis-box">
+        <div class="kicker">Leadership map</div>
+        <div class="matrix-wrap">
+          <div class="quad-label" style="top:8px; left:8px;">Card rail scale</div>
+          <div class="quad-label" style="top:8px; right:8px;">Cross-rail control</div>
+          <div class="quad-label" style="bottom:28px; left:8px;">Niche or protocol first</div>
+          <div class="quad-label" style="bottom:28px; right:8px;">Machine-native frontier</div>
+          <div class="axis-x">Merchant / consumer reach →</div>
+          <div class="axis-y">Machine-native readiness →</div>
+
+          <div class="dot" style="left:62%; top:38%;">Stripe</div>
+          <div class="dot soft" style="left:74%; top:24%;">Mastercard</div>
+          <div class="dot soft" style="left:78%; top:28%;">Visa</div>
+          <div class="dot outline" style="left:65%; top:42%;">OpenAI</div>
+          <div class="dot outline" style="left:69%; top:46%;">Google</div>
+          <div class="dot" style="left:40%; top:72%;">x402</div>
+          <div class="dot outline" style="left:49%; top:68%;">Tempo</div>
+          <div class="dot outline" style="left:44%; top:79%;">Circle</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="kicker">How to read the field</div>
+        <h2 style="margin-bottom:7px;">Leadership by segment</h2>
+        <table>
+          <thead>
+            <tr><th>Company</th><th>Why it matters now</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>OpenAI</strong></td><td>Turned agentic shopping from concept into live consumer behavior through ChatGPT Instant Checkout and ACP.</td></tr>
+            <tr><td><strong>Stripe</strong></td><td>The strongest cross-segment operator: co-built ACP, launched MPP, runs the token layer, supports network-led and BNPL agentic flows.</td></tr>
+            <tr><td><strong>Mastercard</strong></td><td>Strongest public proof of controlled live card-network transactions in Europe and Latin America.</td></tr>
+            <tr><td><strong>Visa</strong></td><td>Owns enormous existing distribution and is pushing the trust stack via Intelligent Commerce and Trusted Agent Protocol.</td></tr>
+            <tr><td><strong>Google</strong></td><td>Trying to standardize the broader commerce workflow through AP2 and UCP, especially around carts, catalog data, and identity linking.</td></tr>
+            <tr><td><strong>x402</strong></td><td>Most visible stablecoin-native machine-payment standard in the market today.</td></tr>
+            <tr><td><strong>Circle</strong></td><td>Defines the sub-cent endpoint with Nanopayments, but remains in testnet territory.</td></tr>
+          </tbody>
+        </table>
+        <div class="divider"></div>
+        <p><strong>Anvesan take:</strong> Stripe is the most strategically interesting company in the field because it is active in both emerging markets at the same time: consumer checkout and machine-native payments.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="three-col">
+      <div class="card soft">
+        <div class="badge">Strongest retail signal</div>
+        <p><strong>OpenAI + Stripe</strong> show the clearest merchant-facing consumer use case. Distribution plus payment rails matters more than protocol purity in the first phase.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">Strongest network signal</div>
+        <p><strong>Mastercard</strong> currently has the sharpest “real transactions happened” narrative. That matters because most of the market is still selling roadmaps.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">Strongest machine signal</div>
+        <p><strong>x402 + MPP</strong> make the strongest case that the second half of agentic payments will be API-native, software-driven, and much more global than retail checkout.</p>
+      </div>
+    </div>
+
+    <div class="footer"><span>Anvesan · Leadership map</span><span class="page-no">05</span></div>
+  </section>
+
+  <!-- PAGE 5 -->
+  <section class="page">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">What is live</div>
+        <h2>The timeline that created the current market</h2>
+      </div>
+      <div class="small">The category accelerated fast between September 2025 and March 2026.</div>
+    </div>
+
+    <div class="comparison-grid" style="grid-template-columns: 1fr 0.95fr;">
+      <div class="card">
+        <div class="timeline">
+          <div class="event">
+            <div class="date">September 2025</div>
+            <p><strong>Google launches AP2.</strong> More than 60 organizations join the effort to create a payment-agnostic trust and authorization framework for agents, merchants, and payment providers.</p>
+          </div>
+          <div class="event">
+            <div class="date">September 2025</div>
+            <p><strong>OpenAI launches Instant Checkout.</strong> U.S. users can buy from U.S. Etsy sellers inside ChatGPT, with more than one million Shopify merchants coming soon.</p>
+          </div>
+          <div class="event">
+            <div class="date">October 2025</div>
+            <p><strong>Visa debuts Trusted Agent Protocol.</strong> The market begins explicitly treating agent identity and cryptographic proof of authorization as first-class infrastructure.</p>
+          </div>
+          <div class="event">
+            <div class="date">January 2026</div>
+            <p><strong>Google and partners introduce UCP for shopping.</strong> The push shifts from abstract protocol design to the messy operational layer of carts, catalogs, and retail surfaces.</p>
+          </div>
+          <div class="event">
+            <div class="date">March 2, 2026</div>
+            <p><strong>Mastercard + Santander complete Europe’s first live end-to-end agentic payment in a regulated banking framework.</strong> Important caveat: Mastercard says it is still a pilot, not a commercial rollout.</p>
+          </div>
+          <div class="event">
+            <div class="date">March 10, 2026</div>
+            <p><strong>Circle launches Nanopayments on testnet.</strong> The market’s sub-cent payment thesis becomes more concrete, but not yet production-grade.</p>
+          </div>
+          <div class="event">
+            <div class="date">March 18, 2026</div>
+            <p><strong>Stripe launches MPP.</strong> Visa simultaneously ships a card specification and SDK for MPP, a sign that machine payments are becoming a cross-rail category rather than a crypto-only niche.</p>
+          </div>
+          <div class="event">
+            <div class="date">March 19–24, 2026</div>
+            <p><strong>Google updates UCP and Mastercard scales live LAC activity.</strong> The market broadens from isolated launches into ecosystem building and regional proof points.</p>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="card dark" style="margin-bottom:8px; min-height:95mm;">
+          <div class="kicker" style="color:rgba(255,255,255,0.7);">Status classification</div>
+          <h2 style="color:white; margin-bottom:10px;">Not all “launches” mean the same thing</h2>
+          <div class="barblock">
+            <div class="barrow"><div class="small" style="color:rgba(255,255,255,0.72);">Commercially live</div><div class="bar"><div class="fill green" style="width:80%"></div></div><div class="small" style="color:rgba(255,255,255,0.72);">4</div></div>
+            <div class="barrow"><div class="small" style="color:rgba(255,255,255,0.72);">Controlled live pilots</div><div class="bar"><div class="fill amber" style="width:58%"></div></div><div class="small" style="color:rgba(255,255,255,0.72);">3</div></div>
+            <div class="barrow"><div class="small" style="color:rgba(255,255,255,0.72);">Open protocol rollouts</div><div class="bar"><div class="fill blue" style="width:71%"></div></div><div class="small" style="color:rgba(255,255,255,0.72);">5</div></div>
+            <div class="barrow"><div class="small" style="color:rgba(255,255,255,0.72);">Testnet / frontier</div><div class="bar"><div class="fill" style="width:26%"></div></div><div class="small" style="color:rgba(255,255,255,0.72);">1</div></div>
+          </div>
+          <p style="margin-top:10px;">The report should keep this distinction sharp. The market is advancing fast, but it is still easy to confuse an open specification, a branded initiative, a regulated pilot, and genuine commercial usage.</p>
+        </div>
+
+        <div class="card soft" style="min-height:78mm;">
+          <div class="badge">Anvesan interpretation</div>
+          <p class="quote">March 2026 is the moment agentic payments stopped being a pure theory market and became an infrastructure market.</p>
+          <p style="margin-top:8px;">The implications are different. Infrastructure markets are won slowly, through trust, compatibility, merchant onboarding, and operational reliability, not by a single flashy launch.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer"><span>Anvesan · Timeline</span><span class="page-no">06</span></div>
+  </section>
+
+  <!-- PAGE 6 -->
+  <section class="page">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">The stack</div>
+        <h2>How the agentic-payments stack is forming</h2>
+      </div>
+      <div class="small">No company owns the full stack yet.</div>
+    </div>
+
+    <div class="stack">
+      <div class="layer">
+        <div class="left">Interface layer</div>
+        <div>
+          <p><strong>Where intent starts.</strong> ChatGPT, Gemini, retailer assistants, and API-first agent interfaces capture user requests and convert them into transaction-ready instructions.</p>
+        </div>
+        <div class="right">OpenAI · Google</div>
+      </div>
+      <div class="layer">
+        <div class="left">Commerce orchestration</div>
+        <div>
+          <p><strong>Where shopping logic lives.</strong> Carts, catalog data, real-time pricing, shipping state, returns, discounts, and post-purchase details must all move correctly.</p>
+        </div>
+        <div class="right">ACP · UCP</div>
+      </div>
+      <div class="layer">
+        <div class="left">Authorization & trust</div>
+        <div>
+          <p><strong>Where the market is really being won.</strong> Mandates, verifiable credentials, shared payment tokens, network-issued agentic tokens, and trusted agent identity sit here.</p>
+        </div>
+        <div class="right">AP2 · Stripe · Visa · Mastercard</div>
+      </div>
+      <div class="layer">
+        <div class="left">Machine payment layer</div>
+        <div>
+          <p><strong>Where software pays software.</strong> MPP and x402 let services coordinate payment programmatically without forcing human checkout flows into machine behavior.</p>
+        </div>
+        <div class="right">MPP · x402</div>
+      </div>
+      <div class="layer">
+        <div class="left">Settlement layer</div>
+        <div>
+          <p><strong>Where value actually moves.</strong> Cards, bank rails, stablecoins, and eventually other programmable settlement systems coexist rather than fully replace one another.</p>
+        </div>
+        <div class="right">Cards · Stablecoins</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="future-grid">
+      <div class="card soft">
+        <div class="kicker">What this means</div>
+        <h2 style="margin-bottom:8px;">Why the stack matters more than the headline</h2>
+        <p>The visible part of the market is the buy button. The invisible part is harder and more valuable: identity, credential scoping, authorization history, merchant readiness, refund logic, and liability routing. That is why every serious player is moving deeper into protocol and control layers, not just UX.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">What the first phase rewards</div>
+        <table>
+          <thead><tr><th>Layer</th><th>Near-term moat</th></tr></thead>
+          <tbody>
+            <tr><td>Interface</td><td>Distribution and attention</td></tr>
+            <tr><td>Commerce</td><td>Merchant integrations and catalog fidelity</td></tr>
+            <tr><td>Trust</td><td>Scoped credentials and verifiable intent</td></tr>
+            <tr><td>Machine payments</td><td>Developer simplicity and low-friction pricing</td></tr>
+            <tr><td>Settlement</td><td>Global connectivity and compliance</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="card dark">
+      <div class="kicker" style="color:rgba(255,255,255,0.7);">Anvesan thesis</div>
+      <h2 style="color:white; margin-bottom:8px;">The stack is converging toward a hybrid model</h2>
+      <p>Card rails will remain dominant where consumer protection, merchant familiarity, and issuer controls matter most. Stablecoin rails will increasingly dominate where payment has to behave like software: tiny, global, instant, and programmatic. The connective tissue between those worlds is where the most defensible infrastructure value will sit.</p>
+    </div>
+
+    <div class="footer"><span>Anvesan · The stack</span><span class="page-no">07</span></div>
+  </section>
+
+  <!-- PAGE 7 -->
+  <section class="page">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">Bottlenecks</div>
+        <h2>What still blocks mass adoption</h2>
+      </div>
+      <div class="small">The rails exist. The constraints are elsewhere.</div>
+    </div>
+
+    <div class="risk-grid">
+      <div class="card soft">
+        <div class="badge">Trust</div>
+        <h3 style="font-size:14px; margin-bottom:6px;">Agent identity</h3>
+        <p>Merchants and issuers need cryptographic proof that an agent is legitimate, acting within permission, and traceable if something goes wrong.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">Control</div>
+        <h3 style="font-size:14px; margin-bottom:6px;">Liability routing</h3>
+        <p>When a transaction is incorrect, fraudulent, or disputed, responsibility must be legible across agent, merchant, PSP, network, and issuer.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">Operations</div>
+        <h3 style="font-size:14px; margin-bottom:6px;">Commerce-state complexity</h3>
+        <p>Prices, inventory, returns, taxes, shipping, loyalty, cancellations, and support all need reliable machine-readable workflows.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">Adoption</div>
+        <h3 style="font-size:14px; margin-bottom:6px;">Merchant readiness</h3>
+        <p>Most merchants are not staffed to chase every protocol shift. This gives orchestration layers a meaningful role.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">Economics</div>
+        <h3 style="font-size:14px; margin-bottom:6px;">Micropayment fit</h3>
+        <p>Traditional payment rails are structurally awkward for tiny, high-frequency machine payments. That is where stablecoin-native methods have an edge.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">Measurement</div>
+        <h3 style="font-size:14px; margin-bottom:6px;">Noisy data</h3>
+        <p>One of the clearest signs of immaturity is that reported activity levels for crypto-native agent payments still vary materially depending on the source.</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="heat">
+      <table>
+        <thead>
+          <tr>
+            <th>Constraint</th>
+            <th class="center">Card-led checkout</th>
+            <th class="center">Machine-native payments</th>
+            <th>Why it matters</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Authorization proof</strong></td>
+            <td class="center severity-mid">Medium</td>
+            <td class="center severity-high">High</td>
+            <td>Card ecosystems already know how to authorize people. They do not yet fully know how to authorize software agents.</td>
+          </tr>
+          <tr>
+            <td><strong>Merchant acceptance</strong></td>
+            <td class="center severity-mid">Medium</td>
+            <td class="center severity-high">High</td>
+            <td>Retailers can be onboarded through existing PSPs; API sellers and internet services are only beginning to expose payment-required endpoints.</td>
+          </tr>
+          <tr>
+            <td><strong>Dispute handling</strong></td>
+            <td class="center severity-low">Low</td>
+            <td class="center severity-high">High</td>
+            <td>Card rails have decades of consumer and issuer processes. Machine-native payments still lack comparable standardization.</td>
+          </tr>
+          <tr>
+            <td><strong>Micropayment economics</strong></td>
+            <td class="center severity-high">High</td>
+            <td class="center severity-low">Low</td>
+            <td>Card economics are poorly matched to tiny machine payments; stablecoin-native flows are naturally better here.</td>
+          </tr>
+          <tr>
+            <td><strong>Compliance legibility</strong></td>
+            <td class="center severity-mid">Medium</td>
+            <td class="center severity-mid">Medium</td>
+            <td>Both worlds need clearer rules for autonomous action, but card rails start from a more familiar compliance posture.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <p><strong>Anvesan conclusion:</strong> the bottleneck is not “can AI pay?” It is “can this payment be trusted, bounded, audited, reversed where needed, and understood by every participant in the flow?”</p>
+
+    <div class="footer"><span>Anvesan · Bottlenecks</span><span class="page-no">08</span></div>
+  </section>
+
+  <!-- PAGE 8 -->
+  <section class="page">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">Competitive snapshot</div>
+        <h2>How the main players differ</h2>
+      </div>
+      <div class="small">Same category. Very different strategic positions.</div>
+    </div>
+
+    <div class="card">
+      <table>
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>What they lead</th>
+            <th>Best evidence</th>
+            <th>Main strength</th>
+            <th>Main constraint</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>OpenAI</strong></td>
+            <td>Consumer discovery and in-chat buying</td>
+            <td>Instant Checkout live with Etsy; 1M+ Shopify merchants coming</td>
+            <td>Distribution and interface control</td>
+            <td>Still bounded and merchant-curated</td>
+            <td><span class="chip live">Live</span></td>
+          </tr>
+          <tr>
+            <td><strong>Stripe</strong></td>
+            <td>Cross-rail orchestration</td>
+            <td>ACP, SPTs, Agentic Commerce Suite, MPP, network token support</td>
+            <td>Touches both retail and machine payments</td>
+            <td>Depends on broader ecosystem adoption</td>
+            <td><span class="chip live">Live</span></td>
+          </tr>
+          <tr>
+            <td><strong>Mastercard</strong></td>
+            <td>Network-authenticated agentic card flows</td>
+            <td>Europe pilot + live LAC transactions across 17 participants</td>
+            <td>Issuer and network trust</td>
+            <td>Still controlled environments</td>
+            <td><span class="chip early">Pilot/live</span></td>
+          </tr>
+          <tr>
+            <td><strong>Visa</strong></td>
+            <td>Trust layer and global distribution</td>
+            <td>Intelligent Commerce, Trusted Agent Protocol, MPP card spec</td>
+            <td>Scale of installed network</td>
+            <td>Less public live transaction evidence than Mastercard</td>
+            <td><span class="chip spec">Infrastructure</span></td>
+          </tr>
+          <tr>
+            <td><strong>Google</strong></td>
+            <td>Protocol and commerce coordination</td>
+            <td>AP2 + UCP with carts, catalogs, and identity linking</td>
+            <td>Standard-setting leverage</td>
+            <td>Merchant conversion proof still early</td>
+            <td><span class="chip spec">Protocol</span></td>
+          </tr>
+          <tr>
+            <td><strong>x402</strong></td>
+            <td>Stablecoin-native machine payments</td>
+            <td>75.41M tx, $24.24M 30-day volume on official site</td>
+            <td>Best live internet-native signal</td>
+            <td>Measurement quality and economic maturity</td>
+            <td><span class="chip early">Early live</span></td>
+          </tr>
+          <tr>
+            <td><strong>Circle</strong></td>
+            <td>Sub-cent payment frontier</td>
+            <td>Nanopayments launch on testnet</td>
+            <td>Clear thesis for machine-scale pricing</td>
+            <td>Not yet proven in production</td>
+            <td><span class="chip test">Testnet</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="three-col">
+      <div class="card dark">
+        <div class="kicker" style="color:rgba(255,255,255,0.7);">Best current positioning</div>
+        <h2 style="color:white; font-size:15px; margin-bottom:6px;">Stripe</h2>
+        <p>The company with the broadest exposure to where the category is going, because it is present in both the visible checkout layer and the invisible machine-payment layer.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">Most underrated fact</div>
+        <p>Google is not just competing on AI shopping surfaces. It is trying to define the <strong>interoperability grammar</strong> of agentic commerce.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">Most important warning</div>
+        <p>Stablecoin-native volume is the cleanest proof of future-fit architecture, but it is still too early to treat today’s numbers as evidence of mass behavior.</p>
+      </div>
+    </div>
+
+    <div class="footer"><span>Anvesan · Competitive snapshot</span><span class="page-no">09</span></div>
+  </section>
+
+  <!-- PAGE 9 -->
+  <section class="page">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">Forward view</div>
+        <h2>What the future most likely looks like</h2>
+      </div>
+      <div class="small">Three time horizons, one broad direction.</div>
+    </div>
+
+    <div class="horizons">
+      <div class="card">
+        <div class="badge">Next 12 months</div>
+        <h3 style="font-size:15px; margin-bottom:6px;">Controlled expansion</h3>
+        <ul style="margin:0 0 0 16px; padding:0;">
+          <li>More bounded merchant rollouts</li>
+          <li>More network-token launches</li>
+          <li>More UCP / ACP / AP2 convergence pressure</li>
+          <li>More machine-payment experiments tied to real services</li>
+          <li>More measurement and benchmarking tools</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="badge">Next 2–3 years</div>
+        <h3 style="font-size:15px; margin-bottom:6px;">Standardization fight</h3>
+        <ul style="margin:0 0 0 16px; padding:0;">
+          <li>Trust layers become table stakes</li>
+          <li>Machine agents begin paying for software routinely</li>
+          <li>Merchant tools absorb protocol complexity</li>
+          <li>Stablecoin settlement grows underneath invisible experiences</li>
+          <li>More explicit regulatory language around autonomous payment authority</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="badge">Long term</div>
+        <h3 style="font-size:15px; margin-bottom:6px;">Payments behave like software</h3>
+        <ul style="margin:0 0 0 16px; padding:0;">
+          <li>Agents transact continuously, not episodically</li>
+          <li>Card and stablecoin worlds coexist rather than replace one another</li>
+          <li>Pricing models shrink from subscriptions toward usage-based economics</li>
+          <li>Trust and orchestration providers capture the most durable value</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="future-grid">
+      <div class="card dark">
+        <div class="kicker" style="color:rgba(255,255,255,0.7);">Most likely path</div>
+        <h2 style="color:white; margin-bottom:8px;">The next big unlock is not autonomy. It is routine.</h2>
+        <p>Agentic payments become important when they stop feeling special. The market wins once payment is folded invisibly into tasks such as replenishment, business procurement, software access, dynamic shipping, travel coordination, data retrieval, and machine-managed subscriptions.</p>
+        <div class="divider" style="background:rgba(255,255,255,0.12);"></div>
+        <p>That shift requires trusted rails, but it also requires cultural normalization. Consumers and enterprises will accept bounded delegated payments long before they accept unconstrained agent spending.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Scenario view</div>
+        <table>
+          <thead><tr><th>Scenario</th><th>What drives it</th><th>Odds</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Base case</strong></td><td>Controlled checkout scales first; machine payments grow steadily in API and SaaS niches</td><td>High</td></tr>
+            <tr><td><strong>Bull case</strong></td><td>Protocol convergence reduces fragmentation and merchant adoption accelerates sharply</td><td>Medium</td></tr>
+            <tr><td><strong>Bear case</strong></td><td>Fraud, liability disputes, or poor user experience slow trust and keep adoption siloed</td><td>Medium</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <p><strong>Anvesan forecast:</strong> the category expands meaningfully over the next two years, but the shape of the expansion matters. Consumer shopping agents likely grow through existing merchant and card systems. Machine-native payments likely grow through APIs, software, cloud, data, and service endpoints where stablecoin settlement has real structural advantages.</p>
+
+    <div class="footer"><span>Anvesan · Forward view</span><span class="page-no">10</span></div>
+  </section>
+
+  <!-- PAGE 10 -->
+  <section class="page">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">Strategic conclusion</div>
+        <h2>The Anvesan view</h2>
+      </div>
+      <div class="small">The market is no longer asking whether agents can pay.</div>
+    </div>
+
+    <div class="card dark" style="padding:11mm; margin-bottom:8px;">
+      <p class="quote" style="color:white; border-left-color:white;">The defining question in March 2026 is not whether AI agents can move money. It is which trust models, payment rails, and orchestration layers will govern that behavior at scale.</p>
+    </div>
+
+    <div class="three-col">
+      <div class="card soft">
+        <div class="badge">1</div>
+        <p><strong>Card-led agentic checkout is ahead today.</strong> It has clearer merchant economics, better dispute structures, and far deeper existing acceptance infrastructure.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">2</div>
+        <p><strong>Stablecoin-native machine payments fit the long-term software use case better.</strong> That does not mean they win retail first. It means they may own the part of the market that looks the most like the internet.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">3</div>
+        <p><strong>Trust infrastructure is becoming the real product.</strong> Mandates, scoped credentials, trusted-agent signatures, and verifiable intent are the category’s new core primitives.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">4</div>
+        <p><strong>Protocol wars will matter, but orchestration layers may matter more.</strong> Most merchants and enterprises will not want to rebuild each time standards change.</p>
+      </div>
+      <div class="card soft">
+        <div class="badge">5</div>
+        <p><strong>The eventual winners will span worlds.</strong> They will connect card rails, bank logic, stablecoin settlement, merchant systems, and software-native pricing models.</p>
+      </div>
+      <div class="card">
+        <div class="badge">What to watch next</div>
+        <ul style="margin:0 0 0 16px; padding:0;">
+          <li>More live issuer and merchant launches</li>
+          <li>Protocol convergence or fragmentation</li>
+          <li>Growth in real machine-payment endpoints</li>
+          <li>How fraud and liability are handled</li>
+          <li>Whether stablecoins remain backend rails or become visible user rails</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="source-grid">
+      <div class="card">
+        <div class="kicker">Method</div>
+        <p>This brief emphasizes official primary sources and current public company statements, not broad speculation. Numbers and claims are intentionally biased toward what is verifiable right now in March 2026.</p>
+      </div>
+      <div class="card">
+        <div class="kicker">Use</div>
+        <p>This report is designed as a market-state note: to frame the field, identify current leaders, isolate the strongest numerical signals, and sketch the likely direction of travel without overstating maturity.</p>
+      </div>
+    </div>
+
+    <div class="footer"><span>Anvesan · Strategic conclusion</span><span class="page-no">11</span></div>
+  </section>
+
+  <!-- PAGE 11 -->
+  <section class="page">
+    <div class="sectionhead">
+      <div>
+        <div class="kicker">Selected sources</div>
+        <h2>Primary references used in this report</h2>
+      </div>
+      <div class="small">All accessed in March 2026.</div>
+    </div>
+
+    <div class="source-grid">
+      <div class="card">
+        <ol class="source-list">
+          <li>OpenAI, <em>Buy it in ChatGPT: Instant Checkout and the Agentic Commerce Protocol</em>. <a href="https://openai.com/index/buy-it-in-chatgpt/">openai.com/index/buy-it-in-chatgpt/</a></li>
+          <li>Stripe, <em>10 things we learned building for the first generation of agentic commerce</em>. <a href="https://stripe.com/blog/10-lessons">stripe.com/blog/10-lessons</a></li>
+          <li>Stripe, <em>Introducing the Machine Payments Protocol</em>. <a href="https://stripe.com/blog/machine-payments-protocol">stripe.com/blog/machine-payments-protocol</a></li>
+          <li>Stripe, <em>Supporting additional payment methods for agentic commerce</em>. <a href="https://stripe.com/blog/supporting-additional-payment-methods-for-agentic-commerce">stripe.com/blog/supporting-additional-payment-methods-for-agentic-commerce</a></li>
+          <li>Visa, <em>Enabling AI agents to buy securely and seamlessly</em>. <a href="https://corporate.visa.com/en/products/intelligent-commerce.html">corporate.visa.com/en/products/intelligent-commerce.html</a></li>
+          <li>Visa, <em>Trusted Agent Protocol</em>. <a href="https://developer.visa.com/use-cases/trusted-agent-protocol">developer.visa.com/use-cases/trusted-agent-protocol</a></li>
+        </ol>
+      </div>
+
+      <div class="card">
+        <ol class="source-list" start="7">
+          <li>Visa, <em>Card specification and SDK for Machine Payments Protocol</em>. <a href="https://corporate.visa.com/en/sites/visa-perspectives/innovation/visa-card-specification-sdk-for-machine-payments-protocol.html">corporate.visa.com/.../machine-payments-protocol.html</a></li>
+          <li>Google Cloud, <em>Announcing Agent Payments Protocol (AP2)</em>. <a href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-agents-to-payments-ap2-protocol">cloud.google.com/.../announcing-agents-to-payments-ap2-protocol</a></li>
+          <li>Google, <em>Universal Commerce Protocol updates improve AI shopping for retailers</em>. <a href="https://blog.google/products-and-platforms/products/shopping/ucp-updates/">blog.google/.../shopping/ucp-updates/</a></li>
+          <li>Mastercard, <em>Santander and Mastercard complete Europe’s first live end-to-end payment executed by an AI agent</em>. <a href="https://www.mastercard.com/news/europe/en/newsroom/press-releases/en/2026/santander-and-mastercard-complete-europe-s-first-live-end-to-end-payment-executed-by-an-ai-agent/">mastercard.com/.../europe...</a></li>
+          <li>Mastercard, <em>Agentic payments in Latin America and the Caribbean with live transactions completed across the region</em>. <a href="https://www.mastercard.com/news/latin-america/en/newsroom/press-releases/pr-en/2026/march/mastercard-advances-agentic-payments-in-latin-america-and-the-caribbean-with-live-transactions-completed-across-the-region/">mastercard.com/.../latin-america...</a></li>
+          <li>x402, <em>Payment Required</em>. <a href="https://www.x402.org/">x402.org</a></li>
+          <li>Circle, <em>Circle Nanopayments Launches on Testnet as the Core Primitive for Agentic Economic Activity</em>. <a href="https://www.circle.com/blog/circle-nanopayments-launches-on-testnet-as-the-core-primitive-for-agentic-economic-activity">circle.com/blog/...</a></li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="card soft">
+      <div class="kicker">Source note</div>
+      <p>x402 measurement remains early and can vary across dashboards. This report uses figures displayed on the official x402 website at time of retrieval, while treating them as proof of activity rather than a final market-measurement standard.</p>
+    </div>
+
+    <div class="footer"><span>Anvesan · Selected sources</span><span class="page-no">12</span></div>
+  </section>
+
+</body>
+</html>
