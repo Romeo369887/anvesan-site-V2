@@ -29,8 +29,7 @@ export default function HomePage() {
       <main>
         <section className="container-shell py-24 md:py-32">
           <div className="max-w-3xl space-y-8">
-            <div className="text-xs uppercase tracking-[0.22em] text-neutral-500">Independent Stablecoin Think Tank</div>
-
+            <div className="text-xs uppercase tracking-[0.22em] text-neutral-500">Stablecoin Research & Strategic Advisory</div>
             <div>
               <h1 className="text-4xl font-semibold leading-tight tracking-[-0.04em] md:text-6xl md:leading-[1.05]">
                 Bringing Clarity to Stablecoins.
