@@ -84,11 +84,11 @@ export default function ReportPage({ params }) {
             <div className="grid gap-8 md:grid-cols-2">
               <div className="rounded-3xl border border-neutral-200 p-8">
                 <div className="text-sm uppercase tracking-[0.18em] text-neutral-500">Key themes</div>
-                <div className="mt-6 space-y-4 text-sm leading-7 text-neutral-700">
-                  {report.themes.map((theme) => (
-                    <p key={theme}>{theme}</p>
-                  ))}
-                </div>
+               <ul className="mt-6 list-disc space-y-4 pl-5 text-sm leading-7 text-neutral-700">
+  {report.themes.map((theme) => (
+    <li key={theme}>{theme}</li>
+  ))}
+</ul>
               </div>
 
               <div className="rounded-3xl bg-neutral-900 p-8 text-white">
