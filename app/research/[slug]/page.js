@@ -62,7 +62,7 @@ export default function ReportPage({ params }) {
                 rel="noreferrer"
                 className="rounded-2xl border border-neutral-300 px-6 py-3 text-center text-sm font-medium text-neutral-900 transition hover:border-neutral-900"
               >
-                Open full report
+                Access full report
               </a>
             </div>
           </div>
@@ -109,7 +109,14 @@ export default function ReportPage({ params }) {
                 <div className="text-sm uppercase tracking-[0.18em] text-neutral-500">Report</div>
                 <h2 className="mt-2 text-2xl font-semibold">Read report</h2>
               </div>
-              <div className="text-sm text-neutral-500">{liveReportAvailable ? 'Live publication' : 'Coming soon'}</div>
+              <a
+  href={report.reportPath}
+  target="_blank"
+  rel="noreferrer"
+  className="inline-flex rounded-2xl border border-neutral-300 px-5 py-3 text-sm font-medium text-neutral-900 transition hover:border-neutral-900"
+>
+  Access full report
+</a>
             </div>
 
             <div className="overflow-hidden rounded-[28px] border border-neutral-200 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.04)]">
