@@ -124,7 +124,7 @@ export default function ReportPage({ params }) {
                 <iframe
                   title={report.title}
                   src={report.reportPath}
-                  className="h-[900px] w-full border-0"
+                  className="h-[1200px] w-full border-0"
                 />
               ) : (
                 <div className="flex min-h-[500px] items-center justify-center px-8 py-16 text-center">
