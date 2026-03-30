@@ -57,7 +57,7 @@ export default function ReportPage({ params }) {
 
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
               <a
-                href={report.reportPath}
+                href="#read-report"
                 target="_blank"
                 rel="noreferrer"
                 className="rounded-2xl border border-neutral-300 px-6 py-3 text-center text-sm font-medium text-neutral-900 transition hover:border-neutral-900"
@@ -92,17 +92,17 @@ export default function ReportPage({ params }) {
               </div>
 
               <div className="rounded-3xl bg-neutral-900 p-8 text-white">
-                <div className="text-sm uppercase tracking-[0.18em] text-neutral-400">Publication</div>
-                <h2 className="mt-3 text-2xl font-semibold">Full report presentation</h2>
+                <div className="text-sm uppercase tracking-[0.18em] text-neutral-400">Anvesan Publication</div>
+                <h2 className="mt-3 text-2xl font-semibold">Agentic Payment Stack</h2>
                 <p className="mt-4 max-w-md text-sm leading-7 text-neutral-300">
-                  Read the full publication below inside the Anvesan research experience.
+                  Access the complete analysis on agentic payments, market structure, and the emerging stablecoin stack.
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="border-t border-neutral-200 bg-neutral-50">
+        <section id="read-report" className="border-t border-neutral-200 bg-neutral-50">
           <div className="container-shell py-12">
             <div className="mb-6 flex items-center justify-between gap-4">
               <div>
