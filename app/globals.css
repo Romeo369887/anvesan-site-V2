@@ -19,6 +19,97 @@ body {
 button {
   font: inherit;
 }
+.glass-surface {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    0 10px 30px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+}
+
+.glass-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.48);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow:
+    0 8px 24px rgba(15, 23, 42, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.55);
+  color: #111827;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.62);
+  border-color: rgba(255, 255, 255, 0.7);
+  box-shadow:
+    0 12px 28px rgba(15, 23, 42, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  transform: translateY(-1px);
+}
+
+.glass-button-dark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: rgba(17, 17, 17, 0.72);
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  box-shadow:
+    0 10px 26px rgba(15, 23, 42, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  color: white;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.glass-button-dark:hover {
+  background: rgba(17, 17, 17, 0.82);
+  transform: translateY(-1px);
+}
+
+.glass-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.34);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.42);
+  box-shadow:
+    0 6px 18px rgba(15, 23, 42, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  color: #525252;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    border-color 180ms ease,
+    transform 180ms ease;
+}
+
+.glass-nav-link:hover {
+  background: rgba(255, 255, 255, 0.52);
+  color: #111827;
+  transform: translateY(-1px);
+}
 
 .container-shell {
   @apply mx-auto w-full max-w-6xl px-6;
