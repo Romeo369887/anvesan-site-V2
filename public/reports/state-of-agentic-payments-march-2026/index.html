@@ -266,11 +266,12 @@
     }
 
     .stat-card {
-      min-height: 52mm;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
+  min-height: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 10px;
+}
 
     .stat-value {
       font-size: 25px;
@@ -406,39 +407,39 @@
     }
 
     .timeline {
-      position: relative;
-      margin-top: 3mm;
-      padding-left: 14px;
-    }
+  position: relative;
+  margin-top: 3mm;
+  padding-left: 18px;
+}
 
-    .timeline::before {
-      content: "";
-      position: absolute;
-      left: 3px;
-      top: 0;
-      bottom: 0;
-      width: 2px;
-      background: var(--line);
-    }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--line);
+}
 
-    .event {
-      position: relative;
-      margin-bottom: 10px;
-      padding: 0 0 0 10px;
-    }
+.event {
+  position: relative;
+  margin-bottom: 10px;
+  padding: 0 0 0 16px;
+}
 
-    .event::before {
-      content: "";
-      position: absolute;
-      left: -1px;
-      top: 4px;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--ink);
-      border: 2px solid var(--paper);
-      box-shadow: 0 0 0 1px var(--line);
-    }
+.event::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 2px solid var(--paper);
+  box-shadow: 0 0 0 1px var(--line);
+}
 
     .event .date {
       font-size: 8px;
@@ -1089,10 +1090,11 @@
     }
 
     .cover-right {
-      display: grid;
-      grid-template-rows: 1fr auto;
-      gap: 8px;
-    }
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: 8px;
+  align-content: start;
+}
 
     .hero-panel {
       border-radius: 24px;
