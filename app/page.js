@@ -98,7 +98,7 @@ export default function HomePage() {
                   <div className="text-sm uppercase tracking-[0.18em] text-neutral-500">Research</div>
                   <h2 className="mt-3 text-3xl font-semibold">Featured research</h2>
                   <p className="mt-4 text-base leading-8 text-neutral-600">
-                    Selected briefings from the Anvesan research archive. Each publication opens into its own dedicated report page.
+                    Selected briefings from the Anvesan research archive.
                   </p>
                 </div>
 
