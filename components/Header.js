@@ -28,13 +28,14 @@ export default function Header() {
         </nav>
 
         <a
-          href="https://x.com/anvesanorg"
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Anvesan on X"
-          className="glass-nav-link ml-8 h-10 w-10 p-0 justify-self-end"
-        >
-          <XIcon className="h-5 w-10" />
+  href="https://x.com/anvesanorg"
+  target="_blank"
+  rel="noreferrer"
+  aria-label="Anvesan on X"
+  className="glass-nav-link ml-8 h-12 w-12 p-0 justify-self-end"
+>
+  <XIcon className="h-6 w-6" />
+</a>
         </a>
       </div>
     </header>
