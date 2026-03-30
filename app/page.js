@@ -51,7 +51,7 @@ export default function HomePage() {
                 href="/research"
                 className="rounded-2xl border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-900 transition hover:border-neutral-900"
               >
-                View research
+                Our research
               </Link>
             </div>
           </div>
