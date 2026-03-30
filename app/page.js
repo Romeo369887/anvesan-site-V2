@@ -66,7 +66,7 @@ export default function HomePage() {
               <p className="max-w-4xl text-xl leading-9 text-neutral-800">
                 Anvesan exists to accelerate the adoption of stablecoins to the point where stablecoins become indistinguishable from money: ubiquitous, interoperable, and invisible in everyday use. We believe the future of finance is one where financial transactions such as remittance, trade settlement, and FX happen instantly, seamlessly, and across borders with minimal friction.
               </p>
-              <p className="mt-8 max-w-4xl text-lg leading-9 text-neutral-700">
+              <p className="mt-8 max-w-4xl text-xl leading-9 text-neutral-700">
                 Anvesan aims to work closely with fintechs, neobanks, and enterprises building on stablecoin rails, offering regulatory clarity, market intelligence, and access to a network of industry veterans.
               </p>
             </div>
