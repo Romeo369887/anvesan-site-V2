@@ -136,7 +136,7 @@ export default function HomePage() {
                 <p className="mt-4 max-w-md text-sm leading-7 text-neutral-300">
                   For research partnerships, strategic advisory, or media inquiries.
                 </p>
-                <div className="mt-6 text-sm text-neutral-100">hello@anvesan.xyz</div>
+                <div className="mt-6 text-sm text-neutral-100">research@anvesan.org</div>
               </div>
             </div>
           </div>
