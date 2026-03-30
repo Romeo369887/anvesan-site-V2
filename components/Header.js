@@ -36,7 +36,6 @@ export default function Header() {
 >
   <XIcon className="h-6 w-6" />
 </a>
-        </a>
       </div>
     </header>
   )
