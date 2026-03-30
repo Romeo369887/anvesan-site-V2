@@ -34,7 +34,7 @@ export default function Header() {
           aria-label="Anvesan on X"
           className="glass-nav-link ml-8 h-10 w-10 p-0 justify-self-end"
         >
-          <XIcon className="h-5 w-6" />
+          <XIcon className="h-5 w-10" />
         </a>
       </div>
     </header>
