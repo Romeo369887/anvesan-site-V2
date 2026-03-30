@@ -3,7 +3,7 @@ import XIcon from '@/components/XIcon'
 
 export default function Header() {
   return (
-    <header className="sticky top-0 z-30 border-b border-white/25 bg-white/20 backdrop-blur-2xl"
+    <header className="sticky top-0 z-30 border-b border-white/25 bg-white/20 backdrop-blur-2xl">
       <div className="container-shell grid grid-cols-[1fr_auto_auto] items-center py-5">
         <Link href="/" className="flex items-center gap-4 text-left">
   <div className="flex items-center gap-[10px]">
