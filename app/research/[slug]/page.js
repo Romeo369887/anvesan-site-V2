@@ -58,8 +58,6 @@ export default function ReportPage({ params }) {
             <div className="flex flex-col gap-3 sm:flex-row lg:justify-end">
               <a
                 href="#read-report"
-                target="_blank"
-                rel="noreferrer"
                 className="rounded-2xl border border-neutral-300 px-6 py-3 text-center text-sm font-medium text-neutral-900 transition hover:border-neutral-900"
               >
                 Access full report
