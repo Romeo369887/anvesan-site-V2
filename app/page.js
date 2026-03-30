@@ -11,7 +11,7 @@ const focusAreas = [
   },
   {
     title: 'Regulatory',
-    text: 'Licensing, compliance design, legal frameworks, and the operational realities of building with stablecoin rails across jurisdictions.',
+    text: 'Licensing, compliance design, legal frameworks, and the operational specifics of building with stablecoin rails across jurisdictions.',
   },
   {
     title: 'Policy',
