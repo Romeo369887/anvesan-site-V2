@@ -23,8 +23,8 @@ export default function Header() {
 
         <nav className="hidden justify-self-end gap-8 text-sm text-neutral-600 md:flex">
           <Link href="/" className="glass-nav-link text-sm">Home</Link>
-          <Link href="/" className="glass-nav-link text-sm">Research</Link>
-          <a href="#contact" className="glass-nav-link text-sm">Contact</a>
+          <Link href="/research" className="glass-nav-link text-sm">Research</Link>
+          <Link href="/#contact" className="glass-nav-link text-sm">Contact</Link>
         </nav>
 
         <a
@@ -34,7 +34,7 @@ export default function Header() {
           aria-label="Anvesan on X"
           className="glass-nav-link ml-8 h-10 w-10 p-0 justify-self-end"
         >
-          <XIcon />
+          <XIcon className="h-5 w-5" />
         </a>
       </div>
     </header>
