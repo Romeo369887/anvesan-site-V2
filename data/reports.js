@@ -13,6 +13,7 @@ export const reports = [
       "Stablecoin rails and internet-native payment architecture"
     ],
     "featured": true,
+    isLive: true,
     "reportPath": "/reports/state-of-agentic-payments-march-2026/"
   },
   {
@@ -29,6 +30,7 @@ export const reports = [
       "Regulatory bottlenecks for adoption"
     ],
     "featured": true,
+    isLive: false,
     "reportPath": "/reports/stablecoins-regulation-and-market-structure/"
   },
   {
@@ -45,6 +47,7 @@ export const reports = [
       "Stablecoin rails as operating infrastructure"
     ],
     "featured": true,
+    isLive: false,
     "reportPath": "/reports/enterprise-rails-for-cross-border-settlement/"
   }
 ]
