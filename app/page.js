@@ -48,11 +48,11 @@ export default function HomePage() {
                 Get in touch
               </a>
               <Link
-                href="/research"
-                className="rounded-2xl border border-neutral-300 px-6 py-3 text-sm font-medium text-neutral-900 transition hover:border-neutral-900"
-              >
-                Our research
-              </Link>
+  href="/#featured-research"
+  className="hidden rounded-2xl border border-neutral-300 px-5 py-3 text-sm font-medium text-neutral-900 transition hover:border-neutral-900 md:inline-flex"
+>
+  Our research
+</Link>
             </div>
           </div>
         </section>
