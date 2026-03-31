@@ -12,12 +12,19 @@ export default function ResearchCard({ report }) {
       <p className="mt-4 text-sm leading-7 text-neutral-600">{report.summary}</p>
       <div className="mt-5 text-sm text-neutral-500">{report.pages}</div>
       <div className="mt-auto pt-6">
-        <Link
-          href={`/research/${report.slug}`}
-          className="inline-flex rounded-2xl bg-neutral-900 px-5 py-3 text-center text-sm font-medium text-white transition hover:opacity-90"
-        >
-          Read overview
-        </Link>
+  {report.isLive ? (
+    <Link
+      href={`/research/${report.slug}`}
+      className="glass-button-dark px-5 py-3 text-center text-sm font-medium"
+    >
+      Read overview
+    </Link>
+  ) : (
+    <span className="glass-button px-5 py-3 text-center text-sm font-medium opacity-60 cursor-default">
+      Coming soon
+    </span>
+  )}
+</div>
       </div>
     </article>
   )
