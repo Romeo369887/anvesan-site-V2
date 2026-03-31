@@ -47,12 +47,12 @@ export default function HomePage() {
               <a href="#contact" className="rounded-2xl bg-neutral-900 px-6 py-3 text-sm font-medium text-white transition hover:opacity-90">
                 Get in touch
               </a>
-              <Link
+              <a
   href="/#featured-research"
   className="hidden rounded-2xl border border-neutral-300 px-5 py-3 text-sm font-medium text-neutral-900 transition hover:border-neutral-900 md:inline-flex"
 >
   Our research
-</Link>
+</a>
             </div>
           </div>
         </section>
