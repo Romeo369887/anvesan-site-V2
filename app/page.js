@@ -92,7 +92,7 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div id="research" className="mt-16">
+            <div id="featured-research" className="mt-16">
               <div className="flex items-end justify-between gap-6">
                 <div className="max-w-3xl">
                   <div className="text-sm uppercase tracking-[0.18em] text-neutral-500">Research</div>
