@@ -17,13 +17,19 @@ export default function ResearchListItem({ report }) {
         </div>
 
         <div className="flex flex-col gap-3 md:items-end">
-          <Link
-            href={`/research/${report.slug}`}
-            className="w-full rounded-2xl bg-neutral-900 px-6 py-3 text-center text-sm font-medium text-white transition hover:opacity-90 md:w-auto"
-          >
-            Read overview
-          </Link>
-        </div>
+  {report.isLive ? (
+    <Link
+      href={`/research/${report.slug}`}
+      className="glass-button-dark w-full px-6 py-3 text-center text-sm font-medium md:w-auto"
+    >
+      Read overview
+    </Link>
+  ) : (
+    <span className="glass-button w-full px-6 py-3 text-center text-sm font-medium opacity-60 cursor-default md:w-auto">
+      Coming soon
+    </span>
+  )}
+</div>
       </div>
     </article>
   )
