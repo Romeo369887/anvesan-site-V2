@@ -2,7 +2,7 @@ export const reports = [
   {
     "title": "The State of Agentic Payments",
     "slug": "state-of-agentic-payments-march-2026",
-    "date": "2026-03-01",
+    "date": "2026-03-31",
     "displayDate": "March 2026",
     "category": "State of the Market",
     "summary": "A March 2026 briefing on what is live in agentic payments, who is leading, what the numbers say, and how the market is splitting between card-led agentic checkout and internet-native machine payments.",
@@ -18,8 +18,8 @@ export const reports = [
   {
     "title": "Stablecoins, Regulation, and Market Structure",
     "slug": "stablecoins-regulation-and-market-structure",
-    "date": "2026-02-15",
-    "displayDate": "February 2026",
+    "date": "2026-04-15",
+    "displayDate": "April 2026",
     "category": "Regulatory",
     "summary": "A forthcoming Anvesan briefing on how licensing, compliance, and jurisdictional fragmentation are shaping stablecoin adoption across markets.",
     "overview": "This placeholder record is ready for the next report you publish. Replace the copy and report path when the full publication is ready.",
@@ -28,14 +28,14 @@ export const reports = [
       "Jurisdictional fragmentation",
       "Regulatory bottlenecks for adoption"
     ],
-    "featured": true,
+    "featured": false,
     "reportPath": "/reports/stablecoins-regulation-and-market-structure/"
   },
   {
     "title": "Enterprise Rails for Cross-Border Settlement",
     "slug": "enterprise-rails-for-cross-border-settlement",
-    "date": "2026-01-20",
-    "displayDate": "January 2026",
+    "date": "2026-04-20",
+    "displayDate": "April 2026",
     "category": "Policy",
     "summary": "A forthcoming Anvesan note on why fintechs, neobanks, and enterprises are evaluating stablecoin-native rails for remittance, treasury movement, and trade settlement.",
     "overview": "This placeholder record is ready for the next report you publish. Replace the copy and report path when the full publication is ready.",
@@ -44,7 +44,7 @@ export const reports = [
       "Cross-border settlement design",
       "Stablecoin rails as operating infrastructure"
     ],
-    "featured": true,
+    "featured": false,
     "reportPath": "/reports/enterprise-rails-for-cross-border-settlement/"
   }
 ]
