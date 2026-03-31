@@ -28,7 +28,7 @@ export const reports = [
       "Jurisdictional fragmentation",
       "Regulatory bottlenecks for adoption"
     ],
-    "featured": false,
+    "featured": true,
     "reportPath": "/reports/stablecoins-regulation-and-market-structure/"
   },
   {
@@ -44,7 +44,7 @@ export const reports = [
       "Cross-border settlement design",
       "Stablecoin rails as operating infrastructure"
     ],
-    "featured": false,
+    "featured": true,
     "reportPath": "/reports/enterprise-rails-for-cross-border-settlement/"
   }
 ]
