@@ -17,21 +17,21 @@ export const reports = [
     "reportPath": "/reports/state-of-agentic-payments-march-2026/"
   },
   {
-    "title": "Stablecoins, Regulation, and Market Structure",
-    "slug": "stablecoins-regulation-and-market-structure",
-    "date": "2026-04-15",
+    "title": "State of Consumer Stablecoin",
+    "slug": "stablecoin-consumer-market-april-2026",
+    "date": "2026-04-21",
     "displayDate": "April 2026",
-    "category": "Regulatory",
-    "summary": "A forthcoming Anvesan briefing on how licensing, compliance, and jurisdictional fragmentation are shaping stablecoin adoption across markets.",
-    "overview": "This placeholder record is ready for the next report you publish. Replace the copy and report path when the full publication is ready.",
+    "category": "Consumer",
+    "summary": "A structured view of how consumer stablecoin markets are actually forming across three functional layers: consumer spend, movement and dollar access, and access infrastructure.",
+    "overview": "Stablecoin consumer markets are a layered, competitive system with clear leaders, clear dependencies, and a capital base that has made up its mind about where value accrues.",
     "themes": [
-      "Licensing and compliance design",
-      "Jurisdictional fragmentation",
-      "Regulatory bottlenecks for adoption"
+      "Consumer Market Map",
+      "B2C Infra Stack",
+      "Rails vs Product"
     ],
     "featured": true,
-    isLive: false,
-    "reportPath": "/reports/stablecoins-regulation-and-market-structure/"
+    isLive: true,
+    "reportPath": "/reports/stablecoin-consumer-market-april-2026/"
   },
   {
     "title": "Enterprise Rails for Cross-Border Settlement",
