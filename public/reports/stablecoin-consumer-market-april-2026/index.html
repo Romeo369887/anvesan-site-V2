@@ -1,1 +1,1481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anvesan | Consumer Stablecoin Market Map — April 2026</title>
+  <style>
+    :root{
+      --bg:#ecebe7;
+      --page:#ffffff;
+      --ink:#111214;
+      --ink-2:#23262b;
+      --muted:#6b7077;
+      --line:#d9ddd8;
+      --soft:#f6f7f4;
+      --soft-2:#eff1ee;
+      --soft-3:#e8ebe7;
+      --accent:#111214;
+      --accent-2:#2a2d33;
+      --dark:#0f1012;
+      --tier1:#1e4d2b;
+      --tier1-bg:#e4ede4;
+      --tier2:#7a6312;
+      --tier2-bg:#f1ecd6;
+      --tier3:#8a3b3b;
+      --tier3-bg:#f1dede;
+      --risk-low:#c8d3c4;
+      --risk-med:#e0cf9c;
+      --risk-high:#d59a8f;
+      --risk-crit:#a85b4b;
+      --shadow:0 18px 44px rgba(15,16,18,.08);
+      --radius:18px;
+      --radius-lg:26px;
+    }
+    *{box-sizing:border-box}
+    html,body{
+      margin:0;padding:0;background:var(--bg);color:var(--ink);
+      font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    }
+    body{padding:22px 0 42px}
+    .report{display:flex;flex-direction:column;gap:20px;align-items:center;}
+    .page{
+      width:210mm;min-height:297mm;background:var(--page);box-shadow:var(--shadow);
+      overflow:hidden;position:relative;page-break-after:always;
+    }
+    .page-inner{
+      min-height:297mm;padding:16mm 16mm 15mm;display:flex;flex-direction:column;gap:10px;position:relative;
+    }
+    .cover .page-inner{
+      padding:0;
+      background:
+        radial-gradient(circle at 78% 14%, rgba(255,255,255,.12), transparent 24%),
+        radial-gradient(circle at 14% 78%, rgba(255,255,255,.07), transparent 28%),
+        linear-gradient(155deg, #0b0c0e 0%, #111216 52%, #17191d 100%);
+      color:#fff;
+    }
+    .cover-grid{min-height:297mm;display:grid;grid-template-rows:auto auto 1fr;}
+    .cover-top{
+      padding:14mm 16mm 0;display:flex;align-items:center;justify-content:space-between;
+      color:rgba(255,255,255,.75);font-size:11px;letter-spacing:.13em;text-transform:uppercase;
+    }
+    .cover-brand{display:flex;align-items:center;gap:10px;}
+    .mark, .mark-small{
+      width:36px;height:36px;border-radius:11px;background:#fff;color:#111214;
+      display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;flex:0 0 auto;
+    }
+    .mark-small{width:24px;height:24px;border-radius:8px;background:#111214;color:#fff;font-size:12px;}
+    .cover-main{padding:14mm 16mm 14mm;display:grid;grid-template-columns:1.18fr .82fr;gap:14mm;align-items:start;}
+    .eyebrow{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.73);margin-bottom:18px;}
+    .cover-title{font-size:42px;line-height:.96;letter-spacing:-.055em;margin:0 0 18px;max-width:560px;}
+    .cover-sub{font-size:15px;line-height:1.6;color:rgba(255,255,255,.83);max-width:540px;margin:0 0 26px;}
+    .pill-row{display:flex;flex-wrap:wrap;gap:8px}
+    .pill{
+      padding:8px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.16);
+      background:rgba(255,255,255,.06);backdrop-filter:blur(10px);
+      font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.88);white-space:nowrap;
+    }
+    .cover-side{display:flex;flex-direction:column;gap:10px}
+    .glass{
+      border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.05);
+      backdrop-filter:blur(14px);border-radius:22px;padding:16px;
+    }
+    .glass h4{margin:0 0 8px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.68);}
+    .glass p{margin:0;font-size:14px;line-height:1.55;color:rgba(255,255,255,.89);}
+    .cover-visual{
+      margin-top:6px;border-radius:24px;padding:18px;border:1px solid rgba(255,255,255,.12);
+      background:linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03));
+      min-height:180px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;align-items:end;
+    }
+    .lane{
+      border-radius:18px;padding:12px;min-height:112px;border:1px solid rgba(255,255,255,.12);
+      background:rgba(255,255,255,.05);display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .lane .lane-title{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.65);}
+    .lane strong{font-size:16px;line-height:1.05;letter-spacing:-.03em;color:#fff;}
+    .lane span{font-size:12px;line-height:1.45;color:rgba(255,255,255,.82);}
+    .cover-bottom{
+      padding:0 16mm 14mm;display:grid;grid-template-columns:1fr auto auto;gap:16px;align-items:end;
+      color:rgba(255,255,255,.68);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+    }
 
+    .mast{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding-bottom:10px;margin-bottom:2px;}
+    .mast-left{display:flex;align-items:center;gap:10px;}
+    .mast-copy .tiny, .tiny{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+    .mast-copy .meta{font-size:12px;line-height:1.45;color:var(--ink-2);}
+    .page-no{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);white-space:nowrap;}
+    .chapter{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
+    h1,h2,h3,h4,h5,p{margin:0}
+    .title{font-size:30px;line-height:.98;letter-spacing:-.05em;margin-top:4px;}
+    .lede{font-size:14px;line-height:1.66;color:var(--ink-2);max-width:760px;}
+
+    .grid-2{display:grid;grid-template-columns:1.1fr .9fr;gap:12px;align-items:start;}
+    .grid-2-even{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
+    .card{border:1px solid var(--line);border-radius:var(--radius);background:linear-gradient(180deg,#fff 0%, #f6f8f5 100%);padding:14px;}
+    .card.soft{background:linear-gradient(180deg,#fafbf9 0%, #f1f4f0 100%);}
+    .card.dark{background:linear-gradient(155deg,#111216 0%, #181a1f 100%);color:#fff;border-color:#1c2026;}
+    .card-title{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;}
+    .card.dark .card-title{color:rgba(255,255,255,.62)}
+    .body{font-size:12.2px;line-height:1.6;color:var(--ink-2);}
+    .card.dark .body{color:rgba(255,255,255,.86)}
+    .body strong{color:var(--ink)}
+    .card.dark .body strong{color:#fff}
+
+    .stat-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+    .stat{
+      border:1px solid var(--line);border-radius:18px;padding:14px;min-height:120px;
+      background:linear-gradient(180deg,#fff 0%, #f6f7f4 100%);
+      display:flex;flex-direction:column;justify-content:space-between;
+    }
+    .stat .label{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);}
+    .stat .value{font-size:26px;line-height:.98;letter-spacing:-.05em;margin:6px 0;}
+    .stat .desc{font-size:11.5px;line-height:1.5;color:var(--ink-2);}
+
+    .editorial-band{border-radius:24px;padding:18px;background:linear-gradient(155deg,#101114 0%, #17191d 100%);color:#fff;}
+    .editorial-band p{max-width:760px;font-size:21px;line-height:1.34;letter-spacing:-.035em;}
+
+    /* Confidence tag system */
+    .conf{
+      display:inline-flex;align-items:center;gap:5px;
+      padding:2px 7px;border-radius:999px;
+      font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;
+      vertical-align:middle;
+    }
+    .conf.t1{background:var(--tier1-bg);color:var(--tier1);border:1px solid #c8d8c8;}
+    .conf.t2{background:var(--tier2-bg);color:var(--tier2);border:1px solid #d9cf9e;}
+    .conf.t3{background:var(--tier3-bg);color:var(--tier3);border:1px solid #dfb7b3;}
+    .conf-dot{width:5px;height:5px;border-radius:50%;background:currentColor;display:inline-block;}
+
+    /* Dimensional grid for company profiles */
+    .dim-card{
+      border:1px solid var(--line);border-radius:20px;padding:14px;
+      background:linear-gradient(180deg,#fff 0%, #f5f7f4 100%);
+      display:grid;gap:10px;
+    }
+    .dim-card.accent{background:linear-gradient(155deg,#111216 0%, #191c20 100%);border-color:#1c2026;color:#fff;}
+    .dim-card.accent .dim-label{color:rgba(255,255,255,.58)}
+    .dim-card.accent .dim-val{color:#fff}
+    .dim-card.accent .dim-name{color:#fff}
+    .dim-card.accent .dim-tagline{color:rgba(255,255,255,.78)}
+    .dim-card.accent .dim-row{border-bottom-color:rgba(255,255,255,.1)}
+    .dim-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;}
+    .dim-name{font-size:18px;letter-spacing:-.03em;font-weight:600;line-height:1;}
+    .dim-tagline{font-size:10.5px;letter-spacing:.04em;color:var(--muted);text-transform:uppercase;margin-top:6px;}
+    .dim-tag{
+      padding:4px 8px;border-radius:999px;border:1px solid var(--line);background:var(--soft);
+      font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#1f2227;white-space:nowrap;font-weight:600;
+    }
+    .dim-card.accent .dim-tag{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.15);color:rgba(255,255,255,.85);}
+    .dim-rows{display:grid;gap:6px;}
+    .dim-row{
+      display:grid;grid-template-columns:90px 1fr auto;gap:8px;align-items:center;
+      padding:5px 0;border-bottom:1px dashed var(--line);
+    }
+    .dim-row:last-child{border-bottom:none}
+    .dim-label{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);}
+    .dim-val{font-size:11.5px;line-height:1.4;color:var(--ink-2);}
+
+    /* Dependency diagram */
+    .stack-dep{
+      border:1px solid var(--line);border-radius:22px;
+      background:linear-gradient(180deg,#fff 0%, #f6f8f5 100%);
+      padding:16px;
+    }
+    .dep-grid{
+      display:grid;
+      grid-template-columns:1fr 28px 1fr 28px 1fr;
+      gap:6px;align-items:stretch;
+    }
+    .dep-col{display:flex;flex-direction:column;gap:8px;}
+    .dep-col-head{
+      font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+      text-align:center;padding-bottom:4px;border-bottom:1px solid var(--line);
+    }
+    .dep-node{
+      border:1px solid var(--line);border-radius:14px;padding:10px;
+      background:#fff;min-height:54px;
+      display:flex;flex-direction:column;justify-content:center;
+    }
+    .dep-node.primary{background:linear-gradient(155deg,#111216 0%, #191c20 100%);color:#fff;border-color:#1c2026;}
+    .dep-name{font-size:13px;line-height:1;letter-spacing:-.02em;font-weight:600;}
+    .dep-node.primary .dep-name{color:#fff}
+    .dep-role{font-size:10px;letter-spacing:.05em;color:var(--muted);margin-top:5px;line-height:1.3;}
+    .dep-node.primary .dep-role{color:rgba(255,255,255,.7)}
+    .dep-arrow{
+      display:flex;align-items:center;justify-content:center;
+      color:var(--muted);font-size:15px;font-weight:700;
+    }
+
+    /* Risk heat matrix */
+    .risk-grid{
+      display:grid;grid-template-columns:140px repeat(4, 1fr);
+      gap:1px;background:var(--line);border:1px solid var(--line);border-radius:18px;overflow:hidden;
+    }
+    .risk-grid div{background:#fff;padding:10px;font-size:11px;line-height:1.4;}
+    .risk-grid .rhead{background:#f1f3f0;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-size:10px;}
+    .risk-grid .rowh{background:#f7f8f6;font-weight:600;color:#1f2227;font-size:11px;}
+    .r-low{background:var(--risk-low)!important;color:#1d331e;}
+    .r-med{background:var(--risk-med)!important;color:#4d3f0f;}
+    .r-high{background:var(--risk-high)!important;color:#5c2a1e;}
+    .r-crit{background:var(--risk-crit)!important;color:#fff;}
+
+    /* Methodology tier cards */
+    .tier-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+    .tier-card{
+      border:1px solid var(--line);border-radius:18px;padding:14px;
+      background:linear-gradient(180deg,#fff 0%, #f6f8f5 100%);
+      display:grid;gap:8px;
+    }
+    .tier-badge{
+      display:inline-flex;align-items:center;gap:6px;
+      padding:4px 9px;border-radius:999px;
+      font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:700;
+      width:fit-content;
+    }
+    .tier-badge.t1{background:var(--tier1-bg);color:var(--tier1);}
+    .tier-badge.t2{background:var(--tier2-bg);color:var(--tier2);}
+    .tier-badge.t3{background:var(--tier3-bg);color:var(--tier3);}
+    .tier-card h4{font-size:14px;letter-spacing:-.02em;}
+    .tier-card p{font-size:11.5px;line-height:1.55;color:var(--ink-2);}
+    .tier-card ul{margin:0;padding-left:16px;font-size:11px;line-height:1.5;color:var(--ink-2);}
+
+    /* Multi-layer architecture with rail */
+    .arch{
+      border:1px solid var(--line);border-radius:22px;
+      background:linear-gradient(180deg,#fff 0%, #f6f8f5 100%);
+      padding:14px;display:grid;gap:8px;
+    }
+    .arch-rail{
+      border:1px solid #1c2026;border-radius:16px;padding:12px;
+      background:linear-gradient(155deg,#111216 0%, #191c20 100%);color:#fff;
+      display:grid;grid-template-columns:200px 1fr 200px;gap:12px;align-items:center;
+    }
+    .arch-rail-head{font-size:15px;letter-spacing:-.03em;font-weight:600;}
+    .arch-rail-head span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-top:4px;font-weight:400;}
+    .arch-rail-body{font-size:11.5px;line-height:1.55;color:rgba(255,255,255,.88);}
+    .arch-rail-stat{
+      border-left:1px solid rgba(255,255,255,.18);padding-left:12px;
+      font-size:11px;color:rgba(255,255,255,.78);line-height:1.55;
+    }
+    .arch-rail-stat strong{color:#fff;font-size:14px;display:block;letter-spacing:-.02em;}
+
+    .arch-layer{
+      border:1px solid var(--line);border-radius:16px;padding:12px;background:#fff;
+      display:grid;grid-template-columns:160px 1fr 200px;gap:12px;align-items:center;
+    }
+    .arch-layer-head strong{font-size:16px;letter-spacing:-.03em;line-height:1;}
+    .arch-layer-head span{display:block;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:6px;}
+    .arch-layer-body{font-size:11.5px;line-height:1.55;color:var(--ink-2);}
+    .arch-layer-ent{display:flex;flex-wrap:wrap;gap:5px;}
+    .arch-layer-ent span{
+      padding:5px 8px;border-radius:999px;border:1px solid var(--line);background:var(--soft);
+      font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:#21242a;
+    }
+
+    /* Corridor bars */
+    .corridor-list{display:grid;gap:8px;}
+    .corridor-row{
+      display:grid;grid-template-columns:200px 1fr 110px;gap:12px;align-items:center;
+      padding:10px 12px;border:1px solid var(--line);border-radius:14px;background:#fff;
+    }
+    .corridor-name{font-size:12px;letter-spacing:-.01em;font-weight:600;color:var(--ink);}
+    .corridor-name span{display:block;font-size:10px;color:var(--muted);font-weight:400;margin-top:2px;letter-spacing:.04em;}
+    .corridor-bar{height:14px;border-radius:999px;background:#e9ede8;overflow:hidden;position:relative;}
+    .corridor-fill{position:absolute;inset:0 auto 0 0;border-radius:999px;background:linear-gradient(90deg,#111214 0%, #545962 100%);}
+    .corridor-val{font-size:11px;color:var(--muted);letter-spacing:.04em;text-align:right;}
+
+    /* Regulatory grid */
+    .reg-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+    .reg-card{
+      border:1px solid var(--line);border-radius:18px;padding:14px;
+      background:linear-gradient(180deg,#fff 0%, #f5f7f4 100%);
+    }
+    .reg-card h4{font-size:14px;letter-spacing:-.02em;margin-bottom:6px;}
+    .reg-card .reg-tag{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+    .reg-card p{font-size:11.5px;line-height:1.55;color:var(--ink-2);}
+
+    .mini-table{border:1px solid var(--line);border-radius:18px;overflow:hidden;}
+    table{width:100%;border-collapse:collapse}
+    th,td{
+      padding:10px 10px;text-align:left;vertical-align:top;
+      border-bottom:1px solid var(--line);font-size:11.3px;line-height:1.45;
+    }
+    th{background:#f0f3ef;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;font-size:10px;}
+    tr:last-child td{border-bottom:none}
+
+    .takeaways{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;}
+    .take{border:1px solid var(--line);border-radius:20px;padding:14px;background:linear-gradient(180deg,#fff 0%, #f5f7f4 100%);min-height:150px;}
+    .take .num{font-size:28px;letter-spacing:-.05em;margin-bottom:10px;}
+    .take h4{font-size:15px;margin-bottom:8px;}
+    .take p{font-size:12px;line-height:1.58;color:var(--ink-2);}
+
+    .quote-wall{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;align-items:start;}
+    .quote,.watchlist{min-height:220px;}
+    .quote{
+      border-radius:24px;padding:18px;background:linear-gradient(155deg,#111216 0%, #191c20 100%);color:#fff;
+      display:flex;flex-direction:column;justify-content:flex-start;gap:14px;
+    }
+    .quote p{font-size:17px;line-height:1.42;letter-spacing:-.025em;}
+    .watchlist{
+      border:1px solid var(--line);border-radius:22px;padding:16px;
+      background:linear-gradient(180deg,#fff 0%, #f5f7f4 100%);
+      display:flex;flex-direction:column;justify-content:flex-start;
+    }
+    .watchlist ul{margin:6px 0 0 16px;padding:0;}
+    .watchlist li{margin-bottom:8px;font-size:12px;line-height:1.56;color:var(--ink-2);}
+
+    .footer-note{font-size:10px;line-height:1.5;color:var(--muted);}
+
+    .source-line{
+      font-size:10px;line-height:1.5;color:var(--muted);font-style:italic;
+      padding-top:8px;border-top:1px dashed var(--line);
+    }
+
+    /* Infrastructure map — single page infra overview */
+    .infra-wrap{display:grid;gap:10px;}
+    .infra-cat{
+      border:1px solid var(--line);border-radius:20px;padding:12px;
+      background:linear-gradient(180deg,#fff 0%, #f5f7f4 100%);
+    }
+    .infra-cat-head{
+      display:flex;justify-content:space-between;align-items:center;gap:10px;
+      padding-bottom:8px;margin-bottom:10px;border-bottom:1px solid var(--line);
+    }
+    .infra-cat-head h4{font-size:14px;letter-spacing:-.02em;}
+    .infra-cat-tag{
+      padding:4px 10px;border-radius:999px;font-size:9.5px;letter-spacing:.1em;
+      text-transform:uppercase;font-weight:600;background:var(--soft);border:1px solid var(--line);color:#1f2227;
+    }
+    .infra-cos{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+    .infra-co{
+      border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;
+    }
+    .infra-co-head{display:flex;justify-content:space-between;align-items:baseline;gap:6px;margin-bottom:5px;}
+    .infra-co-name{font-size:12.5px;font-weight:600;letter-spacing:-.02em;}
+    .infra-co-meta{font-size:10px;color:var(--muted);letter-spacing:.04em;}
+    .infra-co-body{font-size:10.8px;line-height:1.45;color:var(--ink-2);}
+
+    @media print{
+      body{padding:0;background:#fff}
+      .report{gap:0}
+      .page{box-shadow:none;margin:0;width:210mm;min-height:297mm}
+    }
+  </style>
+</head>
+<body>
+  <main class="report">
+
+    <!-- ================= COVER ================= -->
+    <section class="page cover">
+      <div class="page-inner">
+        <div class="cover-grid">
+          <div class="cover-top">
+            <div class="cover-brand">
+              <span class="mark">A</span>
+              <div>Anvesan Research</div>
+            </div>
+            <div>Stablecoin Research • Strategy • Market Structure</div>
+          </div>
+
+          <div class="cover-main">
+            <div>
+              <div class="eyebrow"></div>
+              <h1 class="cover-title">State of<br/>Consumer Stablecoin</h1>
+              <p class="cover-sub">
+                A structured view of how consumer stablecoin markets are actually forming across three functional layers: consumer spend, movement and dollar access, and access infrastructure.
+              </p>
+            </div>
+
+            <div class="cover-side">
+              <div class="glass">
+                <h4>Citigroup</h4>
+                <p>
+                  <i>Citi raised its 2030 forecast for stablecoin issuance to $1.9 trillion in its base case and $4 trillion in a bull case.</i>
+                </p>
+              </div>
+              <div class="glass">
+                <h4>McKinsey & Company</h4>
+                <p>
+                 <i> For remittances, stablecoins' $90 billion in payment volumes is less than 1% of the more than $100 trillion in total volumes from that segment. </i>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div style="padding:0 16mm 6mm;">
+            <div class="cover-visual">
+              <div class="lane">
+                <div class="lane-title">Layer 1</div>
+                <strong>Consumer Spend</strong>
+                <span>Wallet + card + fiat exit. Where stablecoins become a money interface.</span>
+              </div>
+              <div class="lane">
+                <div class="lane-title">Layer 2</div>
+                <strong>Movement & Dollar Access</strong>
+                <span>Corridor-specific transfer, remittance, and stored-dollar utility. Consumer and B2B intertwined.</span>
+              </div>
+              <div class="lane">
+                <div class="lane-title">Layer 3</div>
+                <strong>Access Infrastructure</strong>
+                <span>On-ramps, off-ramps, card rails, orchestration. Where capital is concentrating.</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="cover-bottom">
+            <div>Stablecoin Think Tank</div>
+            <div>Anvesan Research</div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE 1 — EXEC SUMMARY ================= -->
+    <section class="page">
+      <div class="page-inner">
+        <div class="mast">
+          <div class="mast-left">
+            <span class="mark-small">A</span>
+            <div class="mast-copy">
+              <div class="tiny">Anvesan Research</div>
+              <div class="meta">Stablecoin Research • Strategy • Market Structure</div>
+            </div>
+          </div>
+          <div class="page-no">Page 1</div>
+        </div>
+
+        <div class="chapter">Executive Summary</div>
+        <h2 class="title">The state of consumer stablecoin markets, April 2026</h2>
+        <p class="lede">
+          Stablecoin consumer markets are no longer a category in gestation. They are a layered, competitive system with clear leaders, clear dependencies, and a capital base that has made up its mind about where value accrues. The market is best read at three levels at once: the surface product, the infrastructure underneath, and the network rails that cut across both.
+        </p>
+
+        <div class="stat-strip">
+          <div class="stat">
+            <div class="label">Market Context</div>
+            <div class="value">$400B</div>
+            <div class="desc">Stablecoin payment volume in 2025, doubled YoY. ~60% B2B. <span class="conf t1"><span class="conf-dot"></span>T1</span></div>
+          </div>
+          <div class="stat">
+            <div class="label">Rail-level concentration</div>
+            <div class="value">&gt;90%</div>
+            <div class="desc">Of on-chain crypto card volume runs on Visa. 130+ programs in 50+ countries. <span class="conf t1"><span class="conf-dot"></span>T1</span></div>
+          </div>
+          <div class="stat">
+            <div class="label">Infra M&amp;A signal</div>
+            <div class="value">$2.9B</div>
+            <div class="desc">Stripe–Bridge ($1.1B, 2025) + Mastercard–BVNK (up to $1.8B, Mar 2026). <span class="conf t1"><span class="conf-dot"></span>T1</span></div>
+          </div>
+          <div class="stat">
+            <div class="label">Consumer scale leader</div>
+            <div class="value">RedotPay</div>
+            <div class="desc">6M+ users, ~$10B annualized volume. Drives 80%+ of onchain crypto card volume. <span class="conf t2"><span class="conf-dot"></span>T2</span></div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card soft">
+            <div class="card-title">The three dynamics shaping the market</div>
+            <div class="body">
+              <p><strong>The spend layer is consolidating around dependencies, not products.</strong> RedotPay, KAST, and much of the category sit on top of 1–2 infrastructure providers (Rain, StraitsX, Bridge). Stack dependency is now as decisive to outcomes as product-market fit.</p>
+              <p style="margin-top:8px;"><strong>The infrastructure layer is where the capital is.</strong> Nine-figure M&amp;A, unicorn-scale rounds, and direct entry by Visa and Mastercard are happening here, not in the consumer apps on top.</p>
+              <p style="margin-top:8px;"><strong>B2B is the larger flow.</strong> ~60% of the $400B payment volume is B2B. Companies like Airtm are following this gravity. The consumer-B2B boundary is where the most interesting product work is happening.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="body">
+              <p><strong></strong> T1 = reputable independent third-party. T2 = self-reported. T3 = estimated/inferred.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="editorial-band">
+          <p>
+            The important question is what's more valuable? The infrastructure or the product that runs on top of it?
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card-title">Signal 01</div>
+            <div class="body">In the spend layer, card-rail sponsorship and orchestration choice now determine unit economics more than product differentiation does. The decisions underneath the product are where margin sits.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Signal 02</div>
+            <div class="body">In remittance, narrow corridor focus still outperforms breadth. But economics are migrating toward the B2B payout interface. Airtm is the clearest expression of that pull.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Signal 03</div>
+            <div class="body">The window for independent infrastructure players to remain independent is closing. Stripe–Bridge and Mastercard–BVNK within 12 months set the pattern.</div>
+          </div>
+        </div>
+
+        <div class="source-line">
+          Sources: Stripe 2025 Annual Letter (Feb 2026); McKinsey + Artemis stablecoin payment volume estimates; Allium adjusted transfer volume; Dune Analytics onchain card spend; Artemis Analytics crypto card volume series; company disclosures.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE 2 — METHODOLOGY ================= -->
+    <section class="page">
+      <div class="page-inner">
+        <div class="mast">
+          <div class="mast-left">
+            <span class="mark-small">A</span>
+            <div class="mast-copy">
+              <div class="tiny">Methodology</div>
+              <div class="meta">Tagging, classification, and ranking framework</div>
+            </div>
+          </div>
+          <div class="page-no">Page 2</div>
+        </div>
+
+        <div class="chapter">Framework</div>
+        <h2 class="title">How this map is built</h2>
+        <p class="lede">
+          Three methodological choices shape everything that follows. First, every numeric claim is tagged by source confidence. Second, companies are classified by primary revenue layer, with secondary roles noted explicitly. Third, composite scores are replaced with explicit dimensional profiles that preserve the underlying signal.
+        </p>
+
+        <div class="card">
+          <div class="card-title">Data confidence tiers</div>
+          <div class="body" style="margin-bottom:10px;">
+            Every number in this report carries a confidence tag as in stablecoin consumer markets, most metrics are company-disclosed and structurally incentive-compatible with overstatement.
+          </div>
+          <div class="tier-cards">
+            <div class="tier-card">
+              <span class="tier-badge t1"><span class="conf-dot"></span>Tier 1 Verified</span>
+              <h4>Independent third-party sources</h4>
+              <p>Artemis Analytics, Allium, Dune Analytics, Chainalysis, regulator filings, on-chain data, audited financials, court records.</p>
+              <ul><li>Most card-volume figures for Visa/Mastercard</li><li>On-chain stablecoin circulation + transaction data</li><li>Valuation via public filings or priced rounds</li></ul>
+            </div>
+            <div class="tier-card">
+              <span class="tier-badge t2"><span class="conf-dot"></span>Tier 2 Self-reported</span>
+              <h4>Company disclosures, no independent confirmation</h4>
+              <p>Press releases, blog posts, fundraising announcements, official websites. Useful, but biased toward favorable framing.</p>
+              <ul><li>Most user-count claims</li><li>Annualized volume claims not verified on-chain</li><li>Country-count and integration-count claims</li></ul>
+            </div>
+            <div class="tier-card">
+              <span class="tier-badge t3"><span class="conf-dot"></span>Tier 3 Estimated</span>
+              <h4>Inferred from partial data or analyst estimate</h4>
+              <p>Derived figures, mid-point estimates across disclosed ranges, forward-looking claims.</p>
+              <ul><li>Market-share estimates without direct measurement</li><li>Run-rate extrapolations</li><li>Pre-disclosure valuation guesses</li></ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card soft">
+            <div class="card-title">Classification rule</div>
+            <div class="body">
+              <p>Each company is assigned a <strong>primary layer</strong> based on where the majority of economic activity or strategic weight sits. A <strong>secondary role</strong> is noted where the company materially participates in another layer.</p>
+              <p style="margin-top:8px;">Examples: StraitsX is primarily access infrastructure but is load-bearing for RedotPay's consumer spend layer. Wirex was historically consumer spend but BaaS revenue is now dominant. Airtm was consumer remittance but is now enterprise payout.</p>
+              <p style="margin-top:8px;">This matters because a category label that ignores economic direction creates misleading competitive comparisons.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-title">Companies considered but excluded</div>
+            <div class="body">
+              <p><strong>Pure crypto exchanges.</strong> Binance, Coinbase etc, stablecoins are a component, not a product.</p>
+              <p style="margin-top:6px;"><strong>Opaque or unverifiable players.</strong> Companies without any public disclosure suitable for T2 tagging.</p>
+              <p style="margin-top:6px;"><strong>Pre-consumer infrastructure.</strong> Stablecoin issuers themselves (Tether, Circle, Paxos).</p>
+              <p style="margin-top:6px;"><strong>Single-chain bets without consumer surface.</strong> Chain-native payment tools that haven't yet shown consumer pull.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Dimensional profile</div>
+          <div class="body" style="margin-bottom:10px;">
+            Each company profile shows six dimensions. The dimensions remain separable because different strategic questions require different weightings.
+          </div>
+          <div class="grid-3">
+            <div class="card soft">
+              <div class="card-title">Scale</div>
+              <div class="body">Users and volume, tagged by confidence tier.</div>
+            </div>
+            <div class="card soft">
+              <div class="card-title">Revenue model</div>
+              <div class="body">Interchange, FX spread, float, fees. Determines unit economics.</div>
+            </div>
+            <div class="card soft">
+              <div class="card-title">Critical dependency</div>
+              <div class="body">The one thing they cannot run without.</div>
+            </div>
+            <div class="card soft">
+              <div class="card-title">Regulatory footprint</div>
+              <div class="body">Licensing posture and jurisdictional exposure.</div>
+            </div>
+            <div class="card soft">
+              <div class="card-title">Concentration risk</div>
+              <div class="body">Single-corridor, single-partner, or single-rail vulnerability.</div>
+            </div>
+            <div class="card soft">
+              <div class="card-title">Capital</div>
+              <div class="body">Funding + valuation. Proxy for investor conviction.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE 3 — MARKET ARCHITECTURE ================= -->
+    <section class="page">
+      <div class="page-inner">
+        <div class="mast">
+          <div class="mast-left">
+            <span class="mark-small">A</span>
+            <div class="mast-copy">
+              <div class="tiny">Market Architecture</div>
+              <div class="meta">Layered view with network rail</div>
+            </div>
+          </div>
+          <div class="page-no">Page 3</div>
+        </div>
+
+        <div class="chapter">The Stack</div>
+        <h2 class="title">Three consumer layers and one network rail running through all of them</h2>
+        <p class="lede">
+          Most consumer stablecoin maps describe three layers. The critical fourth is the network rail, primarily Visa, that every card-led player in the stack runs on. Visa is an active participant in the consumer stablecoin market whose terms shape the economics of every spend-layer company in the category.
+        </p>
+
+        <div class="arch">
+          <div class="arch-rail">
+            <div class="arch-rail-head">
+              Network Rail
+              <span>Cuts across all layers</span>
+            </div>
+            <div class="arch-rail-body">
+              Visa carries over 90% of onchain crypto card volume across 130+ stablecoin-linked programs in 50+ countries. Visa's own stablecoin settlement program hit a ~$4.6B annualized run rate by March 2026. Mastercard is the #2 network, but is closing the gap via the BVNK acquisition. Every spend-layer company in this report depends on card-network terms.
+            </div>
+            <div class="arch-rail-stat">
+              <strong>~$18B</strong>
+              Annualized crypto-card spend, late 2025
+              <div style="margin-top:8px;"><strong>~$4.6B</strong> Visa stablecoin settlement, Mar 2026</div>
+            </div>
+          </div>
+
+          <div class="arch-layer">
+            <div class="arch-layer-head">
+              <strong>Consumer Spend</strong>
+              <span>Visibility layer</span>
+            </div>
+            <div class="arch-layer-body">
+              Wallet + card + fiat-exit bundles. Where stablecoins look most like consumer money products. Heavy UX differentiation, but underlying rails and BIN sponsorship are commoditizing. Most players sit on top of 1–2 infrastructure providers.
+            </div>
+            <div class="arch-layer-ent">
+              <span>RedotPay</span><span>KAST</span><span>PayPal/Venmo</span><span>Reap</span><span>Wirex</span><span>Gnosis Pay</span><span>Coins.ph</span>
+            </div>
+          </div>
+
+          <div class="arch-layer">
+            <div class="arch-layer-head">
+              <strong>Movement &amp; Dollar Access</strong>
+              <span>Workflow layer</span>
+            </div>
+            <div class="arch-layer-body">
+              Corridor-specific transfer, remittance, and stored-dollar utility. The clearest real-world proof of stablecoin economics. Notable: the consumer-B2B boundary is where product gravity is migrating.
+            </div>
+            <div class="arch-layer-ent">
+              <span>Félix</span><span>Airtm (B2B)</span><span>Bitso</span><span>Coins.ph</span><span>Sling Money</span>
+            </div>
+          </div>
+
+          <div class="arch-layer">
+            <div class="arch-layer-head">
+              <strong>Access Infrastructure</strong>
+              <span>Entry / exit / orchestration</span>
+            </div>
+            <div class="arch-layer-body">
+              On-ramp, off-ramp, orchestration, card issuance, regulated rails. Where capital is concentrating. Stripe's $1.1B Bridge acquisition + Mastercard's $1.8B BVNK acquisition in 12 months is the clearest institutional confirmation.
+            </div>
+            <div class="arch-layer-ent">
+              <span>Bridge/Stripe</span><span>Rain</span><span>BVNK/Mastercard</span><span>StraitsX</span><span>Transak</span><span>Ramp</span><span>MoonPay</span><span>Mercuryo</span><span>Onramper</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="stack-dep">
+          <div class="card-title" style="margin-bottom:12px;">Dependency map</div>
+          <div class="dep-grid">
+            <div class="dep-col">
+              <div class="dep-col-head">Network Rail</div>
+              <div class="dep-node primary">
+                <div class="dep-name">Visa</div>
+                <div class="dep-role">Card-network backbone</div>
+              </div>
+              <div class="dep-node">
+                <div class="dep-name">Mastercard</div>
+                <div class="dep-role">Secondary rail</div>
+              </div>
+            </div>
+            <div class="dep-arrow">→</div>
+            <div class="dep-col">
+              <div class="dep-col-head">Infrastructure</div>
+              <div class="dep-node">
+                <div class="dep-name">StraitsX</div>
+                <div class="dep-role">BIN sponsor (APAC)</div>
+              </div>
+              <div class="dep-node">
+                <div class="dep-name">Rain</div>
+                <div class="dep-role">Card issuance infra</div>
+              </div>
+              <div class="dep-node">
+                <div class="dep-name">Bridge / Stripe</div>
+                <div class="dep-role">Orchestration + payouts</div>
+              </div>
+              <div class="dep-node">
+                <div class="dep-name">BVNK / Mastercard</div>
+                <div class="dep-role">Orchestration</div>
+              </div>
+            </div>
+            <div class="dep-arrow">→</div>
+            <div class="dep-col">
+              <div class="dep-col-head">Consumer Surface</div>
+              <div class="dep-node">
+                <div class="dep-name">RedotPay</div>
+                <div class="dep-role">Runs on StraitsX + Visa</div>
+              </div>
+              <div class="dep-node">
+                <div class="dep-name">KAST</div>
+                <div class="dep-role">Runs on Rain + Visa</div>
+              </div>
+              <div class="dep-node">
+                <div class="dep-name">Airtm</div>
+                <div class="dep-role">Runs on Bridge payouts</div>
+              </div>
+              <div class="dep-node">
+                <div class="dep-name">Western Union</div>
+                <div class="dep-role">Runs on Rain card rail</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="source-line">
+          Sources: StraitsX 2025 Wrapped; Rain Series C press release (Jan 2026); Stripe 2025 Annual Letter; Mastercard BVNK acquisition announcement (Mar 2026); Artemis Analytics onchain card volume; Dune Analytics.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE 4 — SPEND LAYER ================= -->
+    <section class="page">
+      <div class="page-inner">
+        <div class="mast">
+          <div class="mast-left">
+            <span class="mark-small">A</span>
+            <div class="mast-copy">
+              <div class="tiny">Section I</div>
+              <div class="meta">Consumer spend platforms</div>
+            </div>
+          </div>
+          <div class="page-no">Page 4</div>
+        </div>
+
+        <div class="chapter">Spend Layer</div>
+        <h2 class="title">Consumer spend: commoditizing product surface, differentiating economics</h2>
+        <p class="lede">
+          There is a clear sign of convergence on the product surfaces: wallet + multi-asset balance + Visa card + FX conversion + fiat exit. But the real competitive story is in the interior. Who sponsors the card, who controls FX spread, and who captures float. Feature parity is less decisive to outcomes in this layer than own/rent economics.
+        </p>
+
+        <div class="grid-2-even">
+          <div class="dim-card accent">
+            <div class="dim-head">
+              <div>
+                <div class="dim-name">RedotPay</div>
+                <div class="dim-tagline">Native stablecoin spend leader</div>
+              </div>
+              <div class="dim-tag">Rank #1</div>
+            </div>
+            <div class="dim-rows">
+              <div class="dim-row"><div class="dim-label">Scale</div><div class="dim-val">6M+ users, 100+ countries <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Volume</div><div class="dim-val">~$10B annualized; $2.95B 2025 card volume <span class="conf t1"><span class="conf-dot"></span>T1</span></div></div>
+              <div class="dim-row"><div class="dim-label">Revenue</div><div class="dim-val">Interchange + FX spread + P2P fees. ~$150M ARR self-reported.</div></div>
+              <div class="dim-row"><div class="dim-label">Dependency</div><div class="dim-val">StraitsX BIN sponsorship; Visa network; Solana + EVM rails.</div></div>
+              <div class="dim-row"><div class="dim-label">Regulation</div><div class="dim-val">HK Money Lender licensed. Limited US/EU.</div></div>
+              <div class="dim-row"><div class="dim-label">Capital</div><div class="dim-val">$194M raised 2025; $107M Series B Dec 2025.</div></div>
+            </div>
+          </div>
+
+          <div class="dim-card">
+            <div class="dim-head">
+              <div>
+                <div class="dim-name">KAST</div>
+                <div class="dim-tagline">Fast-growth challenger</div>
+              </div>
+              <div class="dim-tag">Rank #2</div>
+            </div>
+            <div class="dim-rows">
+              <div class="dim-row"><div class="dim-label">Scale</div><div class="dim-val">1M+ users, 190 countries <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Volume</div><div class="dim-val">~$5B annualized; 15–20% MoM growth <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Revenue</div><div class="dim-val">Card interchange + FX + stablecoin yield passthrough. $100M ARR target 2026.</div></div>
+              <div class="dim-row"><div class="dim-label">Dependency</div><div class="dim-val">Rain (card issuance); Visa; Solana-first architecture.</div></div>
+              <div class="dim-row"><div class="dim-label">Regulation</div><div class="dim-val">Expanding licensing; LatAm + ME roadmap.</div></div>
+              <div class="dim-row"><div class="dim-label">Capital</div><div class="dim-val">$80M Series A Mar 2026 at $600M post. QED + Left Lane led.</div></div>
+            </div>
+          </div>
+
+          <div class="dim-card">
+            <div class="dim-head">
+              <div>
+                <div class="dim-name">PayPal / PYUSD</div>
+                <div class="dim-tagline">Distribution-led, adoption-lagged</div>
+              </div>
+              <div class="dim-tag">Distribution</div>
+            </div>
+            <div class="dim-rows">
+              <div class="dim-row"><div class="dim-label">Scale</div><div class="dim-val">Hundreds of millions PayPal accounts. PYUSD in 70 markets <span class="conf t1"><span class="conf-dot"></span>T1</span></div></div>
+              <div class="dim-row"><div class="dim-label">Volume</div><div class="dim-val">PYUSD market cap ~$4.1B (~1.4% of stablecoin market) <span class="conf t1"><span class="conf-dot"></span>T1</span></div></div>
+              <div class="dim-row"><div class="dim-label">Revenue</div><div class="dim-val">Reserve float (T-bills) + existing PayPal economics.</div></div>
+              <div class="dim-row"><div class="dim-label">Dependency</div><div class="dim-val">Paxos (issuer); Solana as default settlement network since Feb 2026.</div></div>
+              <div class="dim-row"><div class="dim-label">Regulation</div><div class="dim-val">OCC-regulated via Paxos; GENIUS-ready.</div></div>
+              <div class="dim-row"><div class="dim-label">Capital</div><div class="dim-val">Parent-company funded; PYUSD is product, not venture.</div></div>
+            </div>
+          </div>
+
+          <div class="dim-card">
+            <div class="dim-head">
+              <div>
+                <div class="dim-name">Reap</div>
+                <div class="dim-tagline">Corporate-spend stablecoin card</div>
+              </div>
+              <div class="dim-tag">Under-mapped</div>
+            </div>
+            <div class="dim-rows">
+              <div class="dim-row"><div class="dim-label">Scale</div><div class="dim-val">APAC + global SMB base, direct Visa principal member <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Volume</div><div class="dim-val">&gt;$6B annualized (skewed corporate spend) <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Revenue</div><div class="dim-val">Interchange + FX spread on corporate volumes.</div></div>
+              <div class="dim-row"><div class="dim-label">Dependency</div><div class="dim-val">Own Visa principal membership (reduced stack risk vs. peers).</div></div>
+              <div class="dim-row"><div class="dim-label">Regulation</div><div class="dim-val">HK-licensed; APAC expansion.</div></div>
+              <div class="dim-row"><div class="dim-label">Capital</div><div class="dim-val">Series A + B raised; full financials private.</div></div>
+            </div>
+          </div>
+
+          <div class="dim-card">
+            <div class="dim-head">
+              <div>
+                <div class="dim-name">Wirex</div>
+                <div class="dim-tagline">BaaS pivot from legacy spend</div>
+              </div>
+              <div class="dim-tag">Pivoting</div>
+            </div>
+            <div class="dim-rows">
+              <div class="dim-row"><div class="dim-label">Scale</div><div class="dim-val">7M+ consumer users across 130 countries <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Volume</div><div class="dim-val">BaaS volume $850M annualized, launched Nov 2025 <span class="conf t1"><span class="conf-dot"></span>T1</span></div></div>
+              <div class="dim-row"><div class="dim-label">Revenue</div><div class="dim-val">Shifting from B2C interchange to B2B issuance/orchestration fees.</div></div>
+              <div class="dim-row"><div class="dim-label">Dependency</div><div class="dim-val">Visa principal membership; Stellar for settlement.</div></div>
+              <div class="dim-row"><div class="dim-label">Regulation</div><div class="dim-val">EU e-money licensed; principal Visa member.</div></div>
+              <div class="dim-row"><div class="dim-label">Capital</div><div class="dim-val">Mature; private. Strategic pivot signals weakness in direct consumer economics.</div></div>
+            </div>
+          </div>
+
+          <div class="dim-card">
+            <div class="dim-head">
+              <div>
+                <div class="dim-name">Gnosis Pay</div>
+                <div class="dim-tagline">Self-custodial edge; going B2B</div>
+              </div>
+              <div class="dim-tag">Niche → Infra</div>
+            </div>
+            <div class="dim-rows">
+              <div class="dim-row"><div class="dim-label">Scale</div><div class="dim-val">Smaller consumer base; expanding to Argentina/Brazil <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Volume</div><div class="dim-val">Not separately disclosed; small vs. custodial peers.</div></div>
+              <div class="dim-row"><div class="dim-label">Revenue</div><div class="dim-val">Interchange + white-label licensing fees.</div></div>
+              <div class="dim-row"><div class="dim-label">Dependency</div><div class="dim-val">Monavate issuance; Gnosis Safe architecture; Visa.</div></div>
+              <div class="dim-row"><div class="dim-label">Regulation</div><div class="dim-val">EU-licensed; KYC-required despite self-custody.</div></div>
+              <div class="dim-row"><div class="dim-label">Capital</div><div class="dim-val">Ecosystem-backed via Gnosis; not a standalone venture case.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card soft">
+          <div class="card-title">Dominant dynamic</div>
+          <div class="body">
+            Of these six, only Reap and Wirex own their Visa principal membership outright. RedotPay and KAST are hosting spectacular growth on rails they do not control. If card-network terms tighten, and the regulatory environment is pushing that direction, the unit economics of the top of the spend layer compress faster than the companies' public metrics suggest. Building here without owning the rail means building on borrowed time unless the path runs through acquisition (the Stripe–Bridge model) or the rail treats the company as strategic.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE 5 — MOVEMENT LAYER ================= -->
+    <section class="page">
+      <div class="page-inner">
+        <div class="mast">
+          <div class="mast-left">
+            <span class="mark-small">A</span>
+            <div class="mast-copy">
+              <div class="tiny">Section II</div>
+              <div class="meta">Movement &amp; dollar-access platforms</div>
+            </div>
+          </div>
+          <div class="page-no">Page 5</div>
+        </div>
+
+        <div class="chapter">Movement Layer</div>
+        <h2 class="title">Corridor economics, and the B2B gravity underneath</h2>
+        <p class="lede">
+          Remittance is the cleanest category-level proof of stablecoin utility. World Bank data shows ~6.4% average global remittance cost versus sub-1% stablecoin rails. The more important structural story is that consumer remittance is already being rewritten as enterprise payroll for a mobile, remote workforce which is a bigger and more defensible market.
+        </p>
+
+        <div class="card">
+          <div class="card-title">Corridor signal</div>
+          <div class="body" style="margin-bottom:10px;">
+            Estimated annual flow by corridor. Stablecoin-rail compression is most economically meaningful where corridor cost and corridor-to-GDP dependence both run high.
+          </div>
+          <div class="corridor-list">
+            <div class="corridor-row">
+              <div class="corridor-name">US → Mexico<span>Largest single corridor globally</span></div>
+              <div class="corridor-bar"><div class="corridor-fill" style="width:95%"></div></div>
+              <div class="corridor-val">~$64B / yr</div>
+            </div>
+            <div class="corridor-row">
+              <div class="corridor-name">US → India<span>Second largest bilateral corridor</span></div>
+              <div class="corridor-bar"><div class="corridor-fill" style="width:42%"></div></div>
+              <div class="corridor-val">~$37B / yr</div>
+            </div>
+            <div class="corridor-row">
+              <div class="corridor-name">Gulf → South Asia<span>UAE, Saudi → India, Pakistan, Philippines</span></div>
+              <div class="corridor-bar"><div class="corridor-fill" style="width:70%"></div></div>
+              <div class="corridor-val">~$48B / yr</div>
+            </div>
+            <div class="corridor-row">
+              <div class="corridor-name">Intra-LatAm<span>Argentina, Venezuela dollar-access heavy</span></div>
+              <div class="corridor-bar"><div class="corridor-fill" style="width:30%"></div></div>
+              <div class="corridor-val">~$20B / yr</div>
+            </div>
+            <div class="corridor-row">
+              <div class="corridor-name">US → Philippines<span>Stablecoin-heavy use via Coins.ph, GCash</span></div>
+              <div class="corridor-bar"><div class="corridor-fill" style="width:22%"></div></div>
+              <div class="corridor-val">~$15B / yr</div>
+            </div>
+          </div>
+          <div class="source-line" style="margin-top:10px;">
+            Sources: World Bank Migration &amp; Remittances data (latest publication); Visa/Mastercard cross-border data; direct-corridor disclosures from platform operators. Figures rounded and directional.
+          </div>
+        </div>
+
+        <div class="grid-2-even">
+          <div class="dim-card accent">
+            <div class="dim-head">
+              <div>
+                <div class="dim-name">Félix</div>
+                <div class="dim-tagline">Narrow-workflow remittance proof point</div>
+              </div>
+              <div class="dim-tag">Consumer-native</div>
+            </div>
+            <div class="dim-rows">
+              <div class="dim-row"><div class="dim-label">Scale</div><div class="dim-val">400K+ active users, WhatsApp-native <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Volume</div><div class="dim-val">$3B+ cumulative; $1B in past year alone <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Revenue</div><div class="dim-val">Per-transaction fees + FX margin.</div></div>
+              <div class="dim-row"><div class="dim-label">Dependency</div><div class="dim-val">Circle (USDC); dLocal for destination rails; Bitso for LatAm conversion.</div></div>
+              <div class="dim-row"><div class="dim-label">Regulation</div><div class="dim-val">US money transmitter license stack; multi-country corridor compliance.</div></div>
+              <div class="dim-row"><div class="dim-label">Capital</div><div class="dim-val">$75M Series B April 2025, QED-led.</div></div>
+            </div>
+          </div>
+
+          <div class="dim-card">
+            <div class="dim-head">
+              <div>
+                <div class="dim-name">Airtm</div>
+                <div class="dim-tagline">Consumer origin, B2B destination</div>
+              </div>
+              <div class="dim-tag">B2B pivot</div>
+            </div>
+            <div class="dim-rows">
+              <div class="dim-row"><div class="dim-label">Scale</div><div class="dim-val">2.5M users; shifted primary focus to enterprise payouts <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Volume</div><div class="dim-val">$1.2B in stablecoin transactions (2024); growing via Bridge/Stellar <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Revenue</div><div class="dim-val">Enterprise payout fees + FX spread + B2B SaaS.</div></div>
+              <div class="dim-row"><div class="dim-label">Dependency</div><div class="dim-val">Bridge (Stripe) for Stellar USDC payouts. Circle for USDC.</div></div>
+              <div class="dim-row"><div class="dim-label">Regulation</div><div class="dim-val">Money transmitter; 500+ destination payment methods.</div></div>
+              <div class="dim-row"><div class="dim-label">Capital</div><div class="dim-val">Previously raised Series B; financials private.</div></div>
+            </div>
+          </div>
+
+          <div class="dim-card">
+            <div class="dim-head">
+              <div>
+                <div class="dim-name">Bitso</div>
+                <div class="dim-tagline">LatAm rail + consumer hybrid</div>
+              </div>
+              <div class="dim-tag">Rail + app</div>
+            </div>
+            <div class="dim-rows">
+              <div class="dim-row"><div class="dim-label">Scale</div><div class="dim-val">Material share of LatAm retail stablecoin + conversion flow <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Volume</div><div class="dim-val">Powers remittance conversion for Félix; consumer + rail volumes separately significant.</div></div>
+              <div class="dim-row"><div class="dim-label">Revenue</div><div class="dim-val">Exchange fees + B2B conversion + FX margin.</div></div>
+              <div class="dim-row"><div class="dim-label">Dependency</div><div class="dim-val">LatAm fiat rails; Circle/Tether issuers.</div></div>
+              <div class="dim-row"><div class="dim-label">Regulation</div><div class="dim-val">Licensed in Mexico, Brazil, Argentina.</div></div>
+              <div class="dim-row"><div class="dim-label">Capital</div><div class="dim-val">Previously ~$2.2B valuation; no new round disclosed recently.</div></div>
+            </div>
+          </div>
+
+          <div class="dim-card">
+            <div class="dim-head">
+              <div>
+                <div class="dim-name">Coins.ph</div>
+                <div class="dim-tagline">SEA domestic rail + wallet</div>
+              </div>
+              <div class="dim-tag">Local-rail</div>
+            </div>
+            <div class="dim-rows">
+              <div class="dim-row"><div class="dim-label">Scale</div><div class="dim-val">Million+ PH users; deep local payment integration <span class="conf t2"><span class="conf-dot"></span>T2</span></div></div>
+              <div class="dim-row"><div class="dim-label">Volume</div><div class="dim-val">Not publicly disclosed. Key partner for US–PH corridor.</div></div>
+              <div class="dim-row"><div class="dim-label">Revenue</div><div class="dim-val">Exchange spreads + transaction fees.</div></div>
+              <div class="dim-row"><div class="dim-label">Dependency</div><div class="dim-val">BSP (PH central bank) licensing; local bank partners.</div></div>
+              <div class="dim-row"><div class="dim-label">Regulation</div><div class="dim-val">BSP-licensed; strict local compliance.</div></div>
+              <div class="dim-row"><div class="dim-label">Capital</div><div class="dim-val">Mature; ownership via Gotyme/Go Tyme Bank ecosystem.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card soft">
+          <div class="card-title">Dominant dynamic</div>
+          <div class="body">
+            Consumer-remittance headline numbers are growing, but margin compression is coming. Félix is the best-in-class example of narrow corridor focus and has durable unit economics. Airtm's B2B pivot is the more instructive strategic move, the enterprise-payroll use case has more pricing power and fewer consumer acquisition costs. Pure consumer-remittance entrants are arriving in a market whose gravity is migrating elsewhere; the successful plays will either pair consumer with B2B, or build on top of a Bridge/dLocal payout stack rather than owning the corridor alone.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE 6 — INFRASTRUCTURE LAYER ================= -->
+    <section class="page">
+      <div class="page-inner">
+        <div class="mast">
+          <div class="mast-left">
+            <span class="mark-small">A</span>
+            <div class="mast-copy">
+              <div class="tiny">Section III</div>
+              <div class="meta">Access infrastructure &amp; orchestration</div>
+            </div>
+          </div>
+          <div class="page-no">Page 6</div>
+        </div>
+
+        <div class="chapter">Infrastructure Layer</div>
+        <h2 class="title">Where the capital is and where consolidation is happening fastest</h2>
+        <p class="lede">
+          The access infrastructure layer is now the most important competitive arena in consumer stablecoins. Within 12 months: Stripe acquired Bridge for $1.1B, Mastercard agreed to acquire BVNK for up to $1.8B, Rain raised at a $1.95B valuation, and Visa launched direct stablecoin settlement. The capital and strategic weight of the category now sits here.
+        </p>
+
+        <div class="infra-wrap">
+          <div class="infra-cat">
+            <div class="infra-cat-head">
+              <h4>Orchestration &amp; settlement — the new battleground</h4>
+              <div class="infra-cat-tag">Consolidating</div>
+            </div>
+            <div class="infra-cos">
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">Bridge / Stripe</div>
+                  <div class="infra-co-meta"><span class="conf t1"><span class="conf-dot"></span>T1</span></div>
+                </div>
+                <div class="infra-co-body">Acquired by Stripe for $1.1B (2025). Volume 4x in 2025. Cards live in 18 countries (Mar 2026), targeting 100+ by YE. Powers KAST card, Airtm payouts.</div>
+              </div>
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">BVNK / Mastercard</div>
+                  <div class="infra-co-meta"><span class="conf t1"><span class="conf-dot"></span>T1</span></div>
+                </div>
+                <div class="infra-co-body">Mastercard acquiring BVNK for up to $1.8B (Mar 2026). Mastercard cited $350B+ in 2025 digital-currency payment use cases. Positioned as Stripe–Bridge direct competitor.</div>
+              </div>
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">Rain</div>
+                  <div class="infra-co-meta"><span class="conf t1"><span class="conf-dot"></span>T1</span></div>
+                </div>
+                <div class="infra-co-body">$250M Series C Jan 2026 at $1.95B valuation. $3B+ annualized across 200+ partners including Western Union, Nuvei, KAST. 38x volume growth in 2025.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="infra-cat">
+            <div class="infra-cat-head">
+              <h4>Regulated rails &amp; regional exit</h4>
+              <div class="infra-cat-tag">Regional moats</div>
+            </div>
+            <div class="infra-cos">
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">StraitsX</div>
+                  <div class="infra-co-meta"><span class="conf t1"><span class="conf-dot"></span>T1</span></div>
+                </div>
+                <div class="infra-co-body">Nearly $30B cumulative stablecoin volume. Visa BIN sponsor for RedotPay. 40x card-volume growth 2024→2025. MAS-licensed (Singapore). XSGD + XUSD issuer.</div>
+              </div>
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">dLocal</div>
+                  <div class="infra-co-meta"><span class="conf t1"><span class="conf-dot"></span>T1</span></div>
+                </div>
+                <div class="infra-co-body">Publicly listed (NASDAQ: DLO). Local LatAm payment rails. Critical settlement partner for Félix's remittance flows.</div>
+              </div>
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">Mercuryo</div>
+                  <div class="infra-co-meta"><span class="conf t2"><span class="conf-dot"></span>T2</span></div>
+                </div>
+                <div class="infra-co-body">12M+ KYC'd users, 150+ countries. Partners include Binance, Trust Wallet, Revolut, Ledger. Own-brand Mastercard-network card program.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="infra-cat">
+            <div class="infra-cat-head">
+              <h4>Fiat on-ramp providers</h4>
+              <div class="infra-cat-tag">Competitive, commoditizing</div>
+            </div>
+            <div class="infra-cos">
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">Transak</div>
+                  <div class="infra-co-meta"><span class="conf t2"><span class="conf-dot"></span>T2</span></div>
+                </div>
+                <div class="infra-co-body">10M+ users, 450+ integrated apps. Exclusive MetaMask on-ramp. 27+ fiat currencies. Tether + IDG-backed.</div>
+              </div>
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">MoonPay</div>
+                  <div class="infra-co-meta"><span class="conf t2"><span class="conf-dot"></span>T2</span></div>
+                </div>
+                <div class="infra-co-body">Transak's most direct peer. $500M+ raised cumulatively; multi-billion in historic volume. Broad wallet/dapp integration. Previously mapped at ~$3.4B valuation.</div>
+              </div>
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">Ramp Network</div>
+                  <div class="infra-co-meta"><span class="conf t2"><span class="conf-dot"></span>T2</span></div>
+                </div>
+                <div class="infra-co-body">150+ countries, 100+ digital assets, 80+ chains. MiCAR-authorized. $134M raised over 8 years. 0.49–2.9% fee range.</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="infra-cat">
+            <div class="infra-cat-head">
+              <h4>Aggregation &amp; specialized rails</h4>
+              <div class="infra-cat-tag">Sitting between layers</div>
+            </div>
+            <div class="infra-cos">
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">Onramper</div>
+                  <div class="infra-co-meta"><span class="conf t2"><span class="conf-dot"></span>T2</span></div>
+                </div>
+                <div class="infra-co-body">Aggregates 30+ on-ramp providers + 175+ payment methods. Kraken's Payward Ramp added Feb 2026. Routes on best conversion.</div>
+              </div>
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">Banxa</div>
+                  <div class="infra-co-meta"><span class="conf t3"><span class="conf-dot"></span>T3</span></div>
+                </div>
+                <div class="infra-co-body">Australia-listed. Regulated global coverage. Consumer stablecoin metrics less clearly disclosed than peers.</div>
+              </div>
+              <div class="infra-co">
+                <div class="infra-co-head">
+                  <div class="infra-co-name">Baanx</div>
+                  <div class="infra-co-meta"><span class="conf t3"><span class="conf-dot"></span>T3</span></div>
+                </div>
+                <div class="infra-co-body">UK-based card program infrastructure. Plays in the white-label segment adjacent to Rain and Bridge.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card soft">
+          <div class="card-title">Dominant dynamic</div>
+          <div class="body">
+            Three structural conclusions. <strong>One:</strong> the orchestration layer is winner-concentrating. Companies outside Stripe, Mastercard, and Visa's orbit are trending toward acquisition or eclipse. <strong>Two:</strong> regulated regional rails (StraitsX, dLocal) remain hard to disintermediate with their strong licensing moats. <strong>Three:</strong> on-ramp providers are the most commoditized category. Distribution depth (Transak–MetaMask) matters more than feature parity. One or two exits from this segment in the next 18 months is the base case.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE 7 — REGIONAL + REGULATORY ================= -->
+    <section class="page">
+      <div class="page-inner">
+        <div class="mast">
+          <div class="mast-left">
+            <span class="mark-small">A</span>
+            <div class="mast-copy">
+              <div class="tiny">Regional &amp; Regulatory</div>
+              <div class="meta">Regulatory conditions</div>
+            </div>
+          </div>
+          <div class="page-no">Page 7</div>
+        </div>
+
+        <div class="chapter">Geography &amp; Compliance</div>
+        <h2 class="title">Regulation and corridor economics</h2>
+        <p class="lede">
+          Consumer stablecoin products cannot be evaluated geography-free. Licensing posture determines product surface area. Corridor economics determine unit economics. Both have to be read together — neither is sufficient alone.
+        </p>
+
+        <div class="reg-grid">
+          <div class="reg-card">
+            <div class="reg-tag">North America</div>
+            <h4>GENIUS Act era; OCC-regulated issuers gaining ground</h4>
+            <p>
+              The GENIUS Act (passed 2025, 68–30 Senate) sets federal rules for dollar-pegged stablecoins. PYUSD positions itself as the "largest USD stablecoin to get federal approval." OCC has granted conditional trust-bank approval to Bridge covering custody, issuance, orchestration, reserve management — a significant expansion of the regulated-bank stablecoin perimeter.
+            </p>
+            <p style="margin-top:8px;"><strong>Implication:</strong> US-native products now have a compliance moat. Offshore-issued stablecoins and non-federally approved issuers will face tightening distribution restrictions.</p>
+          </div>
+
+          <div class="reg-card">
+            <div class="reg-tag">European Union</div>
+            <h4>MiCA in full force; asset-issuer concentration</h4>
+            <p>
+              MiCA's full application (2024–2025) has created a bifurcated market. Circle's EURC and Paxos's USDG are compliant; USDT's EU access is constrained. Ramp is MiCAR-authorized; Wirex operates as a Visa principal member under EU e-money rules. Gnosis Pay's self-custodial flow still requires MiCA-compatible KYC.
+            </p>
+            <p style="margin-top:8px;"><strong>Implication:</strong> EU is a compliance-heavy but enforceable market. The issuer list is short. Access is gated by licensing, not by product.</p>
+          </div>
+
+          <div class="reg-card">
+            <div class="reg-tag">Singapore &amp; Hong Kong</div>
+            <h4>Clear regulatory paths; APAC infrastructure dominance</h4>
+            <p>
+              StraitsX is a Monetary Authority of Singapore-licensed Major Payment Institution. RedotPay operates under HK Money Lender licensing. Reap is HK-licensed with Visa principal membership. The APAC regulatory environment is tighter than LatAm but friendlier than the US for consumer-facing stablecoin programs which is why APAC-originated companies currently dominate consumer spend volumes.
+            </p>
+            <p style="margin-top:8px;"><strong>Implication:</strong> APAC is the most favorable regulatory environment for stablecoin card programs today.</p>
+          </div>
+
+          <div class="reg-card">
+            <div class="reg-tag">Latin America</div>
+            <h4>Corridor-driven; licensing fragmented</h4>
+            <p>
+              Bitso is licensed in Mexico, Brazil, Argentina. dLocal is listed on NASDAQ as DLO and plays a critical settlement role. Airtm operates under money-transmitter frameworks for outbound flows. Argentina and Venezuela remain stablecoin-dollar-access markets; Brazil is payment-rail-heavy via Pix integration.
+            </p>
+            <p style="margin-top:8px;"><strong>Implication:</strong> LatAm rewards corridor-specific execution over product breadth. The regulatory fragmentation is the feature, not the bug as it keeps incumbents out.</p>
+          </div>
+
+          <div class="reg-card">
+            <div class="reg-tag">South &amp; Southeast Asia</div>
+            <h4>Large addressable flow; deep local-rail requirement</h4>
+            <p>
+              Philippines (Coins.ph, BSP-licensed) is the category's deepest domestic-rail integration case. Indonesia is under-developed infrastructure-wise despite scale. India is regulatorily hostile to consumer stablecoin use; VDA tax framework is punitive. SEA in aggregate is the fastest-growing crypto-card region by transaction volume.
+            </p>
+            <p style="margin-top:8px;"><strong>Implication:</strong> You cannot operate a consumer product in SEA without a local banking partnership. Import-model products fail here.</p>
+          </div>
+
+          <div class="reg-card">
+            <div class="reg-tag">Gulf &amp; Middle East</div>
+            <h4>Emerging; high outbound remittance volume</h4>
+            <p>
+              UAE has established a Virtual Asset Regulatory Authority (VARA) framework. Saudi Arabia and Qatar are more restrictive but are primary sources of ~$48B outbound remittance flow to South Asia and the Philippines. KAST's expansion roadmap specifically targets this region.
+            </p>
+            <p style="margin-top:8px;"><strong>Implication:</strong> Gulf is an underbuilt but high-value corridor. First-mover advantage is available but the regulatory path is narrow.</p>
+          </div>
+        </div>
+
+        <div class="source-line">
+          Sources: GENIUS Act text and Senate passage record; OCC trust-bank approval announcements; MiCA official documentation; MAS, BSP, VARA licensing registers; company regulatory disclosures.
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE 8 — RISK MAP ================= -->
+    <section class="page">
+      <div class="page-inner">
+        <div class="mast">
+          <div class="mast-left">
+            <span class="mark-small">A</span>
+            <div class="mast-copy">
+              <div class="tiny">Risk Map</div>
+              <div class="meta">What can blow up this picture</div>
+            </div>
+          </div>
+          <div class="page-no">Page 8</div>
+        </div>
+
+        <div class="chapter">Risk Analysis</div>
+        <h2 class="title">Four categories of risk</h2>
+        <p class="lede">
+          Every company profiled here has raised capital and published metrics. The failures are invisible. Beyond that survivorship bias, four specific risk vectors could materially redraw this map in 12 months. Each carries different exposure by layer, and each has its own set of mitigations already emerging in the category.
+        </p>
+
+        <div class="card">
+          <div class="card-title">Risk heat — by layer and risk category</div>
+          <div class="body" style="margin-bottom:10px;">
+            How exposed each layer is to each category of risk. Darker shading = higher exposure.
+          </div>
+          <div class="risk-grid">
+            <div class="rhead">Layer / Risk</div>
+            <div class="rhead">Regulatory</div>
+            <div class="rhead">Concentration</div>
+            <div class="rhead">Counterparty</div>
+            <div class="rhead">Issuer</div>
+
+            <div class="rowh">Consumer Spend</div>
+            <div class="r-high">High — card-network terms, state MTLs</div>
+            <div class="r-crit">Critical — Visa rail dependency</div>
+            <div class="r-high">High — BIN sponsor terms</div>
+            <div class="r-med">Medium — multi-stablecoin mitigation</div>
+
+            <div class="rowh">Movement &amp; Access</div>
+            <div class="r-high">High — corridor-specific AML/KYC</div>
+            <div class="r-med">Medium — corridor diversification</div>
+            <div class="r-med">Medium — destination bank partner risk</div>
+            <div class="r-med">Medium — single-chain chokepoints</div>
+
+            <div class="rowh">Infrastructure</div>
+            <div class="r-crit">Critical — OCC, MiCA, MAS, VARA direct exposure</div>
+            <div class="r-med">Medium — M&amp;A absorbs independents</div>
+            <div class="r-low">Low — they are the counterparty</div>
+            <div class="r-high">High — reserve and redemption risk</div>
+
+            <div class="rowh">Network Rail (Visa)</div>
+            <div class="r-low">Low — established regulatory posture</div>
+            <div class="r-low">Low — it is the concentration</div>
+            <div class="r-low">Low — systemic importance</div>
+            <div class="r-low">Low — network-agnostic to issuers</div>
+          </div>
+        </div>
+
+        <div class="grid-2-even">
+          <div class="card">
+            <div class="card-title">Regulatory risk</div>
+            <div class="body">
+              <p><strong>What changes the picture:</strong> GENIUS Act secondary rulemaking; MiCA enforcement on non-compliant issuers; state-level NYDFS action on card programs; APAC licensing framework shifts.</p>
+              <p style="margin-top:8px;"><strong>Most exposed:</strong> Any US-consumer-facing product not sitting on an OCC-regulated or state-trust-chartered stablecoin. Offshore BIN sponsorship arrangements.</p>
+              <p style="margin-top:8px;"><strong>Mitigation:</strong> Diversify BIN sponsors across jurisdictions. Prefer issuers with clear federal regulatory posture.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Concentration risk</div>
+            <div class="body">
+              <p><strong>What changes the picture:</strong> Visa tightening crypto-card program terms; Mastercard post-BVNK undercutting Visa; direct stablecoin-network rails (Tempo, Canton) gaining real throughput.</p>
+              <p style="margin-top:8px;"><strong>Most exposed:</strong> RedotPay, KAST, and any spend-layer player without principal network membership. ~90% of onchain card volume runs on one counterparty.</p>
+              <p style="margin-top:8px;"><strong>Mitigation:</strong> Principal network membership is expensive but de-risks the top of the stack. Reap and Wirex already have it.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Counterparty risk</div>
+            <div class="body">
+              <p><strong>What changes the picture:</strong> A BIN sponsor defaults or changes terms; Bridge/Stripe raises pricing post-acquisition; regional rail (StraitsX, dLocal) has regulatory issue.</p>
+              <p style="margin-top:8px;"><strong>Most exposed:</strong> Consumer products dependent on single orchestration partners. The RedotPay–StraitsX and KAST–Rain pairings are particularly critical.</p>
+              <p style="margin-top:8px;"><strong>Mitigation:</strong> Stack redundancy. Avoid hard-wiring product economics to a single orchestration layer.</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Issuer risk — stablecoin solvency</div>
+            <div class="body">
+              <p><strong>What changes the picture:</strong> USDT reserve transparency action; Circle counterparty shock; de-peg event; GENIUS Act-driven forced issuer redomicile.</p>
+              <p style="margin-top:8px;"><strong>Most exposed:</strong> Anyone over-concentrated in USDT. USDT + USDC hold 88.5% of market, systemic exposure to two issuers.</p>
+              <p style="margin-top:8px;"><strong>Mitigation:</strong> Multi-stablecoin architecture. Clear reserve-attestation requirements for treasury.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card soft">
+          <div class="card-title">Survivorship caveat</div>
+          <div class="body">
+            Every company in this report has successfully raised capital and published favorable metrics. The comparable cohort of stablecoin consumer products that failed, particularly in the 2022–2024 window, is not captured here. The competitive landscape at the entry stage is more crowded than the map suggests, and self-reported volumes that dramatically outpace onchain-verifiable data warrant scepticism.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= PAGE 9 — CONCLUSIONS ================= -->
+    <section class="page">
+      <div class="page-inner">
+        <div class="mast">
+          <div class="mast-left">
+            <span class="mark-small">A</span>
+            <div class="mast-copy">
+              <div class="tiny">Conclusions</div>
+              <div class="meta">Takeaways and watch list</div>
+            </div>
+          </div>
+          <div class="page-no">Page 9</div>
+        </div>
+
+        <div class="chapter">Conclusions</div>
+        <h2 class="title">Six conclusions from the market map</h2>
+
+        <div class="takeaways">
+          <div class="take">
+            <div class="num">01</div>
+            <h4>Infrastructure is the best risk-adjusted seat</h4>
+            <p>
+              The highest-valuation rounds, the largest acquisitions, and the most defensible economics are all in the access layer. Entry via acquisition, licensing, or principal-network membership is where the durable seats are being taken.
+            </p>
+          </div>
+          <div class="take">
+            <div class="num">02</div>
+            <h4>Consumer spend is a dependency-management problem</h4>
+            <p>
+              Product surface is commoditizing. What matters is who owns enough of their rails to preserve margin when Visa or a BIN sponsor tightens terms. Reap and Wirex have done well here.
+            </p>
+          </div>
+          <div class="take">
+            <div class="num">03</div>
+            <h4>Consumer remittance remains real, but B2B is bigger</h4>
+            <p>
+              Félix proves the corridor model works. Airtm's B2B pivot is the more instructive trajectory. Consumer-remittance entrants that pair a B2B payroll product with the corridor product capture better economics and deeper defensibility; pure consumer plays are arriving into compressing margin.
+            </p>
+          </div>
+          <div class="take">
+            <div class="num">04</div>
+            <h4>PYUSD is a distribution bet that hasn't converted yet</h4>
+            <p>
+              1.4% of the stablecoin market despite PayPal's reach is a notable gap. It may still close but installed distribution and actual adoption are diverging metrics here. Current USDT + USDC concentration (88.5%) is the market reality PYUSD still has to displace.
+            </p>
+          </div>
+          <div class="take">
+            <div class="num">05</div>
+            <h4>APAC is where the best consumer products are being built</h4>
+            <p>
+              RedotPay, KAST, Reap, StraitsX, the consumer-spend and infrastructure leaders are disproportionately APAC-originated. Regulatory clarity plus licensing paths explain most of this. APAC origination is now a real competitive advantage for any consumer-facing stablecoin product attempting speed to market.
+            </p>
+          </div>
+          <div class="take">
+            <div class="num">06</div>
+            <h4>Survivorship bias and Visa concentration are the two blind spots</h4>
+            <p>
+              Most category analysis underweights both. Failure invisibility and rail concentration are the two forces most likely to reshape the map materially between now and 2027.
+            </p>
+          </div>
+        </div>
+
+        <div class="quote-wall">
+          <div class="quote">
+            <div class="tiny" style="color:rgba(255,255,255,.62)">Closing view</div>
+            <p>
+              The interesting competition in consumer stablecoins is now between the infrastructure players who will own the rails those apps run on and the network rails that will dictate the terms of the entire stack.
+            </p>
+          </div>
+          <div class="watchlist">
+            <div class="card-title" style="margin-bottom:8px;">Watch list — next 12 months</div>
+            <ul>
+              <li>Mastercard–BVNK integration: does it match Stripe–Bridge's volume trajectory, or stall?</li>
+              <li>Visa's direct stablecoin settlement run rate: ~$4.6B annualized at Mar 2026. At $10B+, the calculus for card programs changes meaningfully.</li>
+              <li>RedotPay–StraitsX: does RedotPay eventually acquire its own principal membership, and does StraitsX expand BIN sponsorship to competitors?</li>
+              <li>KAST scale test: can $5B annualized hold through the typical post-launch cooldown? Growth is currently 15–20% MoM.</li>
+              <li>PYUSD conversion: does the Feb 2026 Solana-default shift translate into real onchain traction, or does the 1.4% market share persist?</li>
+              <li>Airtm B2B-payroll: does the company successfully reposition as a B2B infrastructure play, or stall in the middle?</li>
+              <li>Next infra acquisition target: Rain is the most likely independent to get priced into a strategic. Watch late 2026.</li>
+              <li>GENIUS Act secondary rulemaking: reserve, redemption, and issuance-rule clarifications could reshape issuer concentration.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card soft">
+          <div class="card-title">Final view</div>
+          <div class="body">
+            The strongest consumer stablecoin businesses are the ones that make stablecoins feel invisible while preserving trust, usability, and local money-movement depth. The market is no longer theoretical. It is layered, uneven, and already competitive with the decisive competition happening in the layer users never see.
+          </div>
+        </div>
+
+        <div class="footer-note">
+          © 2026 Anvesan Research. Market reference only; not investment advice. Metrics tagged by confidence tier, independent verification recommended before commercial or capital commitments.
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
