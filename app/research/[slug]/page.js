@@ -26,8 +26,7 @@ export default function ReportPage({ params }) {
     notFound()
   }
 
-  const liveReportAvailable = report.slug === 'state-of-agentic-payments-march-2026'
-
+const liveReportAvailable = report.isLive
   return (
     <div className="min-h-screen bg-white text-neutral-900">
       <Header />
