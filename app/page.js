@@ -34,11 +34,20 @@ export default function HomePage() {
               <h1 className="text-4xl font-semibold leading-tight tracking-[-0.04em] md:text-6xl md:leading-[1.05]">
                 Bringing Clarity to Stablecoins.
               </h1>
-              <p className="mt-4 text-xl font-medium text-neutral-500 md:text-3xl">
-                Technical. Regulatory. Policy.
-              </p>
+              <div className="mt-4 h-8 text-xl font-medium text-neutral-500 md:h-10 md:text-3xl">
+                <span className="relative inline-block min-w-[10ch] align-top">
+                  <span className="absolute left-0 top-0 inline-block overflow-hidden whitespace-nowrap [width:0ch] [animation:anvesanTypeTechnical_9s_steps(10,end)_infinite]">
+                    Technical.
+                  </span>
+                  <span className="absolute left-0 top-0 inline-block overflow-hidden whitespace-nowrap [width:0ch] [animation:anvesanTypeRegulatory_9s_steps(11,end)_infinite]">
+                    Regulatory.
+                  </span>
+                  <span className="absolute left-0 top-0 inline-block overflow-hidden whitespace-nowrap [width:0ch] [animation:anvesanTypePolicy_9s_steps(7,end)_infinite]">
+                    Policy.
+                  </span>
+                </span>
+              </div>
             </div>
-
             <p className="max-w-2xl text-lg leading-8 text-neutral-600">
               Anvesan researches the infrastructure, regulation, and market structure shaping the global adoption of stablecoins across payments, banking, and enterprise finance.
             </p>
